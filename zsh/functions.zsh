@@ -1,1 +1,3 @@
-/Users/nabeen.khadka/.config/zsh/functions.zsh
+take () {
+  mkdir $1 && cd $1
+}

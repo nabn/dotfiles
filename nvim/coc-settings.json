@@ -1,1 +1,6 @@
-/Users/nabeen.khadka/.config/nvim/coc-settings.json
+{
+  "typescript.suggestionActions.enabled": false,
+  "coc.preferences.useQuickfixForLocations": true,
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
+  "tsserver.formatOnType": true
+}

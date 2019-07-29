@@ -1,1 +1,30 @@
-/Users/nabeen.khadka/.gitconfig
+[alias]
+  st = status
+  br = branch
+  co = checkout
+  squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+  show-ignored = !git ls-files -v | grep "^h"
+  find-file = "!for branch in $(git for-each-ref --format=\"%(refname)\" refs/heads); do if git ls-tree -r --name-only $branch | grep \"$1\" > /dev/null; then  echo \"${branch}:\"; git ls-tree -r --name-only $branch | nl -bn -w3 | grep \"$1\"; fi; done; :"
+
+[core]
+  excludesfile = ~/.gitignore_global
+  pager = diff-so-fancy | less --tabs=2 -RFX
+
+[format]
+  pretty = format:%C(blue)%h %<(20,trunc)%C(green)%aN %>(15,trunc)%C(blue)%ar %C(green)%s
+
+[commit]
+  template = ~/.stCommitMsg
+
+[merge]
+  tool = neovim
+
+[mergetool]
+  prompt = false
+
+[mergetool "neovim"]
+  cmd = nvim -d $LOCAL $BASE $MERGED $REMOTE -c 'wincmd w' -c 'wincmd J'
+
+[merge "npm-merge-driver"]
+  name = automatically merge npm lockfiles
+  driver = npx npm-merge-driver merge %A %O %B %P

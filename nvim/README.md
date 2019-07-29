@@ -1,1 +1,1 @@
-/Users/nabeen.khadka/.config/nvim/README.md
+My neovim configuration

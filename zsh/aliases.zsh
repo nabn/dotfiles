@@ -42,20 +42,21 @@ watchstatus='while true; do clear; git status -s -b; sleep 5; done'
   }
 
   alias clone='git clone'
+  alias copygitbranchname=git rev-parse --abbrev-ref HEAD | pbcopy
   alias g='git'
-  alias gd='git diff'
   alias ga='git add'
   alias gap='git add -p'
+  alias gb='git --no-pager branch'
   alias gc='git commit'
+  alias gd='git diff'
+  alias gdc="git diff --cached"
+  alias ggr=changeBranchGrep
   alias gl='git log --relative-date'
   alias glh='git --no-pager log --relative-date -10'
-  alias gb='git --no-pager branch'
-  alias gpl='git pull'
+  alias gp='git push'
   alias gpf='git push --force-with-lease'
+  alias gpl='git pull'
   alias gs='git status'
-  alias ggr=changeBranchGrep
-  alias gdc="git diff --cached"
   alias t='tig --no-merges'
   alias tn='tig --no-merges --author=nabeen'
-  alias copygitbranchname=git rev-parse --abbrev-ref HEAD | pbcopy
 # }}}

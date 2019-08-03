@@ -32,6 +32,7 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'airblade/vim-gitgutter'
 " }}}
   call plug#end()
 " }}}
@@ -119,7 +120,7 @@
   nnoremap <leader>e :e ~/.config/nvim/init.vim<CR>
   nnoremap <leader>q :bd<CR>
   nnoremap <leader>R :e!<CR>
-	command! -nargs=+ SearchSourceFiles execute "silent grep! <args>" | copen 7
+  command! -nargs=+ SearchSourceFiles silent grep! <args> | copen 7
   nnoremap <leader>a :SearchSourceFiles<space>
   nnoremap <leader>A :SearchSourceFiles -g '!*.spec.ts'<space>
 
@@ -347,4 +348,6 @@ com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
 " }}}
 
 let @i="nciwtemplatef'ct,require(p:w"
+let g:rainbow_active=1
+se fdm=syntax
 iabbrev improt import

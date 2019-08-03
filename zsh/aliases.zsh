@@ -42,7 +42,7 @@ watchstatus='while true; do clear; git status -s -b; sleep 5; done'
   }
 
   alias clone='git clone'
-  alias copygitbranchname=git rev-parse --abbrev-ref HEAD | pbcopy
+  alias copygitbranchname='git rev-parse --abbrev-ref HEAD | pbcopy'
   alias g='git'
   alias ga='git add'
   alias gap='git add -p'
@@ -57,6 +57,9 @@ watchstatus='while true; do clear; git status -s -b; sleep 5; done'
   alias gpf='git push --force-with-lease'
   alias gpl='git pull'
   alias gs='git status'
-  alias t='tig --no-merges'
+  alias grbc='git rebase --continue'
+  alias grba='git rebase --abort'
   alias tn='tig --no-merges --author=nabeen'
+  alias t='tig --no-merges'
+  alias tm='tig --no-merges master...'
 # }}}

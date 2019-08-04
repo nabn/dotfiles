@@ -91,6 +91,9 @@
   set grepprg=rg\ --vimgrep\ --no-heading
   set nofoldenable
   syntax on
+
+  " Misspellings
+  iabbrev improt import
 " }}}
 " Mappings {{{
   let mapleader=','
@@ -268,6 +271,8 @@
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> rn <Plug>(coc-rename)
+  autocmd filetype javascript,typescript vmap gq <Plug>(coc-format-selected)
+  autocmd filetype javascript,typescript nmap gq <Plug>(coc-format-selected)
 
   " Use K for show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -350,4 +355,4 @@ com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
 let @i="nciwtemplatef'ct,require(p:w"
 let g:rainbow_active=1
 se fdm=syntax
-iabbrev improt import
+nnoremap ff :Format<cr>

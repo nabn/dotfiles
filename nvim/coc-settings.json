@@ -1,6 +1,5 @@
 {
-  "typescript.suggestionActions.enabled": false,
   "coc.preferences.useQuickfixForLocations": true,
-  "tslint.alwaysShowRuleFailuresAsWarnings": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
+  "coc.preferences.formatOnSaveFiletypes": ["typescript"],
+  "coc.source.ultisnips.enable": true
 }

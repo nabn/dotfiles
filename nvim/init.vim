@@ -1,48 +1,58 @@
 " Plugins {{{
   call plug#begin('~/nvim/plugged')
 " UI {{{{
-    Plug 'morhetz/gruvbox'
-    Plug 'yuttie/inkstained-vim'
-    Plug 'mhartington/oceanic-next'
-    Plug 'flrnprz/taffy.vim'
-    Plug 'edkolev/tmuxline.vim'
+    " Plug 'Yggdroot/indentLine'
     Plug 'ayu-theme/ayu-vim'
+    Plug 'edkolev/tmuxline.vim'
     Plug 'itchyny/lightline.vim'
     Plug 'junegunn/goyo.vim',  { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
-    Plug 'ryanoasis/vim-devicons'
     Plug 'luochen1990/rainbow'
+    Plug 'mhartington/oceanic-next'
+    Plug 'morhetz/gruvbox'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'rakr/vim-one'
+    Plug 'mkarmona/materialbox'
+    Plug 'gregsexton/Atom'
+    Plug 'yuttie/inkstained-vim'
+    Plug 'jacekd/vim-iawriter'
 " }}}}
 " Languages {{{
     Plug 'sheerun/vim-polyglot'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'mfukar/robotframework-vim' 
 " }}}
 " Utils {{{
     Plug '/usr/local/bin/fzf'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'alok/notational-fzf-vim'
+    Plug 'ap/vim-css-color'
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'cohama/lexima.vim'                 " autoclose parens
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'jiangmiao/auto-pairs'              " autoclose parens
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/vim-easy-align'
     Plug 'mattn/emmet-vim'
+    Plug 'mcchrish/nnn.vim'
     Plug 'rhysd/git-messenger.vim'
     Plug 'tmhedberg/matchit'                 " extended % matching for HTML, LaTeX, and many other languages
+    Plug 'tommcdo/vim-exchange'
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'airblade/vim-gitgutter'
 " }}}
+  Plug 'lambdalisue/gina.vim'
   call plug#end()
 " }}}
+
 " Set Declarations {{{
   filetype indent on
   filetype plugin indent on
 
   highlight Comment cterm=italic
 
-  let g:nv_search_paths = ['~/notes']
+  let g:nv_search_paths =['~/Google Drive/Notes']
+  let g:nv_create_note_key = 'ctrl-x'
   let g:python_host_prog='/usr/local/bin/python'
   hi SpellBad gui=undercurl guisp=red term=undercurl cterm=undercurl
 
@@ -78,7 +88,7 @@
   set showcmd
   set showtabline=2                                 " always show tab line
   set signcolumn=auto
-  set smartcase
+  set ignorecase
   set smartindent
   set softtabstop=2
   set tabstop=2
@@ -95,6 +105,7 @@
   " Misspellings
   iabbrev improt import
 " }}}
+
 " Mappings {{{
   let mapleader=','
   nmap 0 ^
@@ -117,17 +128,21 @@
   nnoremap <leader>o :only<CR>
   nnoremap <leader>O :call helpers#DeleteHiddenBuffers()<CR>
   nnoremap <leader>N :NV<CR>
+  vnoremap <C-X> <Esc>`.``gvP``P      " swap two words
 
   nnoremap Q @@ " replay last macro
 
   nnoremap <leader>e :e ~/.config/nvim/init.vim<CR>
   nnoremap <leader>q :bd<CR>
   nnoremap <leader>R :e!<CR>
-  command! -nargs=+ SearchSourceFiles silent grep! <args> | copen 7
-  nnoremap <leader>a :SearchSourceFiles<space>
-  nnoremap <leader>A :SearchSourceFiles -g '!*.spec.ts'<space>
+  command! -nargs=+ RgSource silent grep! -g '!*.spec.*' -g '!dist' <args> | copen 7
+  command! -nargs=+ RgAll silent grep! <args> | copen 7
+  nnoremap <leader>a :RgSource<space>
+  nnoremap <leader>A :RgAll<space>
 
-  nnoremap <leader>l :Lexplore<cr>
+  let g:nnn#layout = 'new'
+  let g:nnn#set_default_mappings = 0
+  nnoremap <leader><cr> :NnnPicker<cr>
 
   " nnoremap <leader><CR> :NERDTreeToggle<CR>
   nnoremap <leader>gs :Gstatus<CR>
@@ -141,6 +156,7 @@
   " visually swap two words
   vnoremap <C-X> <Esc>`.` `gvP``P
 " }}}
+
 " Terminal (neovim) {{{
 " Window split settings
   set splitbelow
@@ -153,12 +169,15 @@
   tnoremap <Leader><ESC> <C-\><C-n>
   tnoremap <ESC> <C-\><C-n>
 " }}}
+
 " FZF {{{
   nnoremap <c-b> :Buffers<CR>
   nnoremap <c-f> :Files<CR>
 
   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+  let $FZF_DEFAULT_OPTS = ''
   let g:fzf_buffers_jump = 1
+  inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
   imap <c-x><c-f> <plug>(fzf-complete-path)
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 
@@ -173,10 +192,10 @@
     \   <bang>0)
 
   let g:fzf_commits_log_options = '--format="%C(white)%h%>(15,trunc)%C(blue)%aN%>(15,trunc)%C(yellow)%ar %C(green)%s"'
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" make FZF use colorscheme colors
-  let g:fzf_colors =
-        \ { 'fg':    ['fg', 'Normal'],
+  let g:fzf_colors = {
+        \ 'fg':      ['fg', 'Normal'],
         \ 'bg':      ['bg', 'Normal'],
         \ 'hl':      ['fg', 'Comment'],
         \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -189,22 +208,26 @@
         \ 'marker':  ['fg', 'Keyword'],
         \ 'spinner': ['fg', 'Label'],
         \ 'header':  ['fg', 'Comment'] }
+  " }}}
 
-" }}}
 " Linters + Formatters {{{
   " primitive html auto-format
   vnoremap <leader>x JV:s/>\s*</>\r</<CR>
 " }}}
-" Misc {{{
-  let g:deoplete#enable_at_startup=1
-  let g:startify_change_to_vcs_root=1
-  let g:gitgutter_enabled=1
-  let g:gitgutter_signs=1
-  let g:gitgutter_hightlight_lines=1
-  let g:netrw_winsize=15
 
+" Misc {{{
+  let g:gitgutter_enabled=1
+  let g:gitgutter_hightlight_lines=1
+  let g:gitgutter_signs=1
   let g:goyo_width=120
-  " let g:goyo_linenr=1
+  let g:netrw_winsize=15
+  let g:rainbow_active=1
+  let g:startify_change_to_vcs_root=1
+  let g:nv_use_short_pathnames=1
+  let ayucolor='mirage' " mirage | light | dark
+  " where 'c' can be any ASCII character. You can also use one of ¦, ┆, │, ⎸, or ▏ 
+  let g:indentLine_char = '┆'
+  colorscheme ayu
 
   command! Invbg call helpers#ReverseBackground()
   noremap <leader>co :Invbg<CR>
@@ -213,41 +236,18 @@
     nmap <BS> <C-W>h
   endif
 
-" let g:tmuxline_preset='tmux'
-  let g:tmuxline_preset = {
-        \'a'    : '#S',
-        \'b'    : '#{?window_zoomed_flag,#[fg=red]} ',
-        \'win'  : '#I #W',
-        \'cwin' : '#I #W',
-        \'y'    : '%a %R',
-        \'z'    : '',}
-" \'x'    : '#(tmux-spotify-info)'}
-
-  let g:tmuxline_powerline_separators = 0
-
   nmap tt :call helpers#SwapTestFile()<CR>
 
-  " inoremap <S-Tab> <C-x><C-o>
-  " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-  let g:used_javascript_libs = 'angularjs'
-
   " prevent opening 1 when I mean :e!
-  autocmd BufNew 1 throw 'You ment to :e! but did :e1'
+  au BufNew 1 throw 'You ment to :e! but did :e1'
 
   " restore cursor on exiting vim
   au VimLeave * set guicursor=a:block-blinkon0
 
-  " let g:gruvbox_bold=0
-  " let g:gruvbox_italic=1
-  " let g:gruvbox_contrast_light='soft'
-  " colorscheme gruvbox
-  let ayucolor='mirage' " mirage | light | dark
-  colorscheme ayu
-
 " }}}
+
 " CoC {{{
   inoremap <silent><expr> <c-space> coc#refresh()
-  " set cmdheight=2
   set updatetime=300
   set shortmess+=c
   set signcolumn=yes
@@ -292,18 +292,8 @@
   augroup end
 
   command! -nargs=0 Format :call CocAction('format')
-  let g:lightline = {
-      \ 'colorscheme': 'candid',
-      \ 'active': {
-      \   'left': [ [ 'mode',      'paste',    'gitbranch'],
-      \             [ 'cocstatus', 'readonly', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'helpers#GetTicketNumber'
-      \ },
-      \ }
 "}}}
+
 " Goyo {{{
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
@@ -333,7 +323,8 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " }}}
-" LightLine {{{
+
+" LightLine + Tmuxline {{{
 function! s:setLightlineColorscheme(name)
   let g:lightline.colorscheme = a:name
   call lightline#init()
@@ -350,9 +341,41 @@ endfun
 
 com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
-" }}}
 
-let @i="nciwtemplatef'ct,require(p:w"
-let g:rainbow_active=1
-se fdm=syntax
-nnoremap ff :Format<cr>
+let g:lightline = {
+    \   'colorscheme': 'ayu',
+    \   'active': {
+    \     'left': [ [ 'mode',      'paste',    'gitbranch'],
+    \               [ 'cocstatus', 'readonly', 'modified' ] ]
+    \   },
+    \   'component_function': {
+    \     'cocstatus': 'coc#status',
+    \     'gitbranch': 'helpers#GetTicketNumber'
+    \   },
+    \ }
+
+let g:tmuxline_powerline_separators=0
+let g:tmuxline_separators = {
+    \ 'left':    '',
+    \ 'left_alt':  '',
+    \ 'right':   '',
+    \ 'right_alt': '',
+    \ 'space':   ' '}
+let g:tmuxline_preset = {
+    \   'a'    : ['#S', '#(git rev-parse --abbrev-ref HEAD | cut -d  - -f1,2)'],
+    \   'win'  : ['#I', '#W'],
+    \   'cwin' : ['#W'],
+    \   'y'    : ['%R', '%a', '%Y'],
+    \   'z'    : '#h'}
+" let g:tmuxline_theme = {
+"     \   'a'    : [ 236, 103 ],
+"     \   'b'    : [ 253, 239 ],
+"     \   'c'    : [ 244, 236 ],
+"     \   'x'    : [ 244, 236 ],
+"     \   'y'    : [ 253, 239 ],
+"     \   'z'    : [ 236, 103 ],
+"     \   'win'  : [ 103, 236 ],
+"     \   'cwin' : [ 236, 103 ],
+"     \   'bg'   : [ 244, 236 ],
+"     \ }
+" }}}

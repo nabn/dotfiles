@@ -7,11 +7,16 @@
   alias cs='clear && git status'
   alias dark='base16_gruvbox-dark-medium'
   alias du=ncdu
+  alias f=fzf
+  alias ft=fzf-tmux
+  alias ivi='nvim' # common misspelling
   alias j=jobs
+  alias l='lsd --color=always | sort -V' # sort numerically
   alias light='base16_gruvbox-light-medium'
-  alias ll='ls -l'
+  alias ll='lsd -l'
   alias ls='lsd'
   alias mux=tmuxinator
+  alias please='sudo $(fc -ln -1)'
   alias rg='rg --pretty --smart-case'
   alias rm='trash -v'
   alias serve='python3 -m http.server 8080 --bind 0.0.0.0'
@@ -41,15 +46,26 @@
     echo $Matches | head -1 | xargs git checkout
   }
   watchstatus='while true; do clear; git status -s -b; sleep 5; done'
+
+  alias connect_vpn="osascript\
+    -e 'tell Application \"Tunnelblick\"'\
+    -e 'connect(get name of first configuration)'\
+    -e 'end tell'"
+  alias disconnect_vpn="osascript\
+    -e 'tell Application \"Tunnelblick\"'\
+    -e 'disconnect(get name of first configuration)'\
+    -e 'end tell'"
 # }}}
 
 # Git {{{
   alias clone='git clone'
   alias copygitbranchname='git rev-parse --abbrev-ref HEAD | pbcopy'
+  alias copy-my-ip-address='ifconfig | grep 192 | cut -d" " -f2 | pbcopy'
   alias g='git'
   alias ga='git add'
   alias gap='git add -p'
   alias gb='git --no-pager branch'
+  alias gbr='git branch -r'
   alias gc='git commit'
   alias gd='git diff'
   alias gdc="git diff --cached"
@@ -68,4 +84,5 @@
   alias t='tig --no-merges'
   alias tm='tig --no-merges master...'
   alias tn='tig --no-merges --author=nabeen'
+  alias get-ticket-number='git rev-parse --abbrev-ref HEAD | rg "^\w+-\d+" --only-matching --no-line-number'
 # }}}

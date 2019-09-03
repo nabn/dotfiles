@@ -55,12 +55,16 @@
     -e 'tell Application \"Tunnelblick\"'\
     -e 'disconnect(get name of first configuration)'\
     -e 'end tell'"
+
+  alias studio_server='npx concurrently "npm run watch:froala" "npm run serve"'
 # }}}
 
 # Git {{{
   alias clone='git clone'
   alias copygitbranchname='git rev-parse --abbrev-ref HEAD | pbcopy'
   alias copy-my-ip-address='ifconfig | grep 192 | cut -d" " -f2 | pbcopy'
+  alias gbd='git branch -d `git branch | fzf-tmux`'
+  alias gcd='git checkout `git branch | fzf-tmux`'
   alias g='git'
   alias ga='git add'
   alias gap='git add -p'

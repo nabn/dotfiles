@@ -1,4 +1,5 @@
 # Paths {{{
+  export PATH="$PATH:/usr/local/opt/openssl@1.1/bin"
   export PATH="$PATH:/usr/local/opt/ruby/bin"
   export PATH="$PATH:/usr/local/lib/ruby/gems/2.6.0/bin"
   export PATH="$PATH:/usr/local/opt/sqlite/bin"
@@ -12,8 +13,6 @@
   zplugin light zsh-users/zsh-autosuggestions
   zplugin light zsh-users/zsh-completions
 
-  zplugin light geometry-zsh/geometry
-
   zplugin load agkozak/zsh-z
 # }}}
 
@@ -25,7 +24,8 @@
   bindkey '' autosuggest-accept
 
   # case-insensitive completion
-  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+  # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
   # The following lines were added by compinstall
   zstyle :compinstall filename '/Users/nabeen.khadka/.zshrc'
@@ -68,3 +68,9 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
 # }}}
+
+# Prompt {{{
+  zplugin light geometry-zsh/geometry
+# }}}
+
+export HTTP_PROXY='http://dev.arrianlg.studio'

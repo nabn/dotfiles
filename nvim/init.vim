@@ -1,5 +1,5 @@
 " Plugins {{{
-  call plug#begin('~/nvim/plugged')
+  call plug#begin('~/.config/nvim/plugged')
 " UI {{{{
     " Plug 'Yggdroot/indentLine'
     Plug 'ayu-theme/ayu-vim'
@@ -20,6 +20,7 @@
 " Languages {{{
     Plug 'sheerun/vim-polyglot'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'mfukar/robotframework-vim'
 " }}}
 " Utils {{{
     Plug '/usr/local/bin/fzf'
@@ -41,7 +42,7 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
 " }}}
-  Plug 'lambdalisue/gina.vim'
+  " Plug 'lambdalisue/gina.vim'
   call plug#end()
 " }}}
 
@@ -68,7 +69,6 @@
   set foldmethod=indent                             " foldmethod syntax along with vim-javascript make things horribly slow
   set formatoptions+=j                              " delete comment character when joining commented lines
   set gdefault                                      " set global flag as default for :substitute
-  set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
   set hidden                                        " enable multiple unsaved buffers to be maintained
   set ignorecase
   set inccommand=nosplit
@@ -77,7 +77,6 @@
   set list
   set listchars=tab:>-,trail:~,extends:>,precedes:< " mark all kinds of whitespace
   set mouse=a
-  set nolazyredraw                                  " fix for redraw bug. use with 'Native fullscreen windows' disabled on iterm
   set nomodeline
   set noshowmode
   set noswapfile
@@ -87,11 +86,10 @@
   set shiftwidth=2
   set showcmd
   set showtabline=2                                 " always show tab line
-  set signcolumn=auto
   set ignorecase
   set smartindent
-  set softtabstop=2
-  set tabstop=2
+  set softtabstop=4
+  set tabstop=4
   set timeoutlen=300
   set undofile
   set wrap
@@ -108,7 +106,7 @@
 
 " Mappings {{{
   let mapleader=','
-  nmap 0 ^
+  " nmap 0 ^
   nmap E $
 
   let g:rg_highlight='true'
@@ -120,8 +118,6 @@
   nnoremap <space> za                 " toggle folding
   nnoremap z<space> zO                " open all folds under cursor
   nnoremap gV `[v`]                   " highlight last inserted text
-  nnoremap <leader>tn :tabnew<CR>
-  nnoremap <leader>tc :tabclose<CR>
   nnoremap <leader>t<leader> :tabn<CR>
   nnoremap <leader>z :Goyo<CR>
   nnoremap <leader><space> :b#<CR>    " switch to last buffer
@@ -149,21 +145,16 @@
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
   vmap <CR> <Plug>(LiveEasyAlign)
-  " list matches
-  " Can be achieved with [I
-  nnoremap <leader>lm :vim // %<CR>:copen<CR>
 
-  " visually swap two words
-  vnoremap <C-X> <Esc>`.` `gvP``P
+  " list matches
+  " can be achieved with [I /]I
+  " nnoremap <leader>lm :vim // %<CR>:copen<CR>
 " }}}
 
 " Terminal (neovim) {{{
 " Window split settings
   set splitbelow
   set splitright
-" terminal open in split
-  command! -nargs=* VT vsplit | terminal <args>
-  command! -nargs=* T split | terminal <args>
 
 " Terminal settings
   tnoremap <Leader><ESC> <C-\><C-n>
@@ -174,7 +165,8 @@
   nnoremap <c-b> :Buffers<CR>
   nnoremap <c-f> :Files<CR>
 
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+  " let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git,dist -l -g ""'
+  let $FZF_DEFAULT_COMMAND='fd --type f'
   let $FZF_DEFAULT_OPTS = ''
   let g:fzf_buffers_jump = 1
   inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
@@ -216,7 +208,7 @@
 " }}}
 
 " Misc {{{
-  let g:gitgutter_enabled=1
+  let g:gitgutter_enabled=0
   let g:gitgutter_hightlight_lines=1
   let g:gitgutter_signs=1
   let g:goyo_width=120
@@ -227,6 +219,10 @@
   let ayucolor='mirage' " mirage | light | dark
   " where 'c' can be any ASCII character. You can also use one of ¦, ┆, │, ⎸, or ▏ 
   let g:indentLine_char = '┆'
+
+  " markdown filetype file
+  au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
+
   colorscheme ayu
 
   command! Invbg call helpers#ReverseBackground()
@@ -242,7 +238,7 @@
   au BufNew 1 throw 'You ment to :e! but did :e1'
 
   " restore cursor on exiting vim
-  au VimLeave * set guicursor=a:block-blinkon0
+  au VimLeave * set guicursor=
 
 " }}}
 
@@ -250,7 +246,6 @@
   inoremap <silent><expr> <c-space> coc#refresh()
   set updatetime=300
   set shortmess+=c
-  set signcolumn=yes
 
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -355,27 +350,11 @@ let g:lightline = {
     \ }
 
 let g:tmuxline_powerline_separators=0
-let g:tmuxline_separators = {
-    \ 'left':    '',
-    \ 'left_alt':  '',
-    \ 'right':   '',
-    \ 'right_alt': '',
-    \ 'space':   ' '}
+
 let g:tmuxline_preset = {
     \   'a'    : ['#S', '#(git rev-parse --abbrev-ref HEAD | cut -d  - -f1,2)'],
     \   'win'  : ['#I', '#W'],
-    \   'cwin' : ['#W'],
+    \   'cwin' : ['#I', '#W'],
     \   'y'    : ['%R', '%a', '%Y'],
     \   'z'    : '#h'}
-" let g:tmuxline_theme = {
-"     \   'a'    : [ 236, 103 ],
-"     \   'b'    : [ 253, 239 ],
-"     \   'c'    : [ 244, 236 ],
-"     \   'x'    : [ 244, 236 ],
-"     \   'y'    : [ 253, 239 ],
-"     \   'z'    : [ 236, 103 ],
-"     \   'win'  : [ 103, 236 ],
-"     \   'cwin' : [ 236, 103 ],
-"     \   'bg'   : [ 244, 236 ],
-"     \ }
 " }}}

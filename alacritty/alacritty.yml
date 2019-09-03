@@ -31,7 +31,7 @@ window:
     y: 0
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -106,13 +106,13 @@ font:
     style: Italic
 
   # Point size
-  size: 12.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 8
+    y: 10
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
@@ -239,7 +239,7 @@ cursor:
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
-  unfocused_hollow: true
+  # unfocused_hollow: true
 
 # Live config reload (changes require restart)
 live_config_reload: true
@@ -649,35 +649,64 @@ key_bindings:
 #     cyan:    '0x8ec07c'
 #     white:   '0xebdbb2'
 # # }}}
-
-# # Ayu Mirage {{{
+# Ayu Dark {{{
 colors:
   # Default colors
   primary:
-    background: '0x1f2430'
-    foreground: '0xcbccc6'
+    background: '0x0f1419'
+    foreground: '0xe6e1cf'
 
   # Normal colors
   normal:
-    black: '0x01060E'
-    red: '0xEA6C73'
-    green: '0x91B362'
-    yellow: '0xF9AF4F'
-    blue: '0x53BDFA'
-    magenta: '0xFAE994'
-    cyan: '0x90E1C6'
-    white: '0xC7C7C7'
+    black:   '0x000000'
+    red:     '0xf34a4a'
+    green:   '0xbae67e'
+    yellow:  '0xffee99'
+    blue:    '0x73d0ff'
+    magenta: '0xd4bfff'
+    cyan:    '0x83CEC6'
+    white:   '0xf2f2f2'
 
   # Bright colors
   bright:
-    black: '0x686868'
-    red: '0xF07178'
-    green: '0xC2D94C'
-    yellow: '0xFFB454'
-    blue: '0x59C2FF'
-    magenta: '0xFFEE99'
-    cyan: '0x95E6CB'
-    white: '0xFFFFFF'
+    black:   '0x737d87'
+    red:     '0xff3333'
+    green:   '0xc2d94c'
+    yellow:  '0xe7c547'
+    blue:    '0x59c2ff'
+    magenta: '0xb77ee0'
+    cyan:    '0x5ccfe6'
+    white:   '0xffffff'
 # }}}
+
+# Ayu Mirage {{{
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x1f2430'
+#     foreground: '0xcbccc6'
+#
+#   # Normal colors
+#   normal:
+#     black: '0x01060E'
+#     red: '0xEA6C73'
+#     green: '0x91B362'
+#     yellow: '0xF9AF4F'
+#     blue: '0x53BDFA'
+#     magenta: '0xFAE994'
+#     cyan: '0x90E1C6'
+#     white: '0xC7C7C7'
+#
+#   # Bright colors
+#   bright:
+#     black: '0x686868'
+#     red: '0xF07178'
+#     green: '0xC2D94C'
+#     yellow: '0xFFB454'
+#     blue: '0x59C2FF'
+#     magenta: '0xFFEE99'
+#     cyan: '0x95E6CB'
+#     white: '0xFFFFFF'
+# # }}}
 # }}}
 # }}}

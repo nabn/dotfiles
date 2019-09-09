@@ -11,10 +11,9 @@
   alias ft=fzf-tmux
   alias ivi='nvim' # common misspelling
   alias j=jobs
-  alias l='lsd --color=always | sort -V' # sort numerically
   alias light='base16_gruvbox-light-medium'
-  alias ll='lsd -l'
-  alias ls='lsd'
+  alias ll='exa -l'
+  alias ls='exa'
   alias mux=tmuxinator
   alias please='sudo $(fc -ln -1)'
   alias rg='rg --pretty --smart-case'

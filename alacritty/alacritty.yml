@@ -112,14 +112,14 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 10
+    y: 14
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
   glyph_offset:
     x: 0
-    y: 5
+    y: 7
 
   # Thin stroke font rendering (OS X only)
   #
@@ -649,6 +649,7 @@ key_bindings:
 #     cyan:    '0x8ec07c'
 #     white:   '0xebdbb2'
 # # }}}
+#
 # Ayu Dark {{{
 colors:
   # Default colors
@@ -708,5 +709,36 @@ colors:
 #     cyan: '0x95E6CB'
 #     white: '0xFFFFFF'
 # # }}}
+
+# Challanger Deep {{{
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x1b182c'
+#     foreground: '0xcbe3e7'
+#
+#   # Normal colors
+#   normal:
+#     black:   '0x100e23'
+#     red:     '0xff8080'
+#     green:   '0x95ffa4'
+#     yellow:  '0xffe9aa'
+#     blue:    '0x91ddff'
+#     magenta: '0xc991e1'
+#     cyan:    '0xaaffe4'
+#     white:   '0xcbe3e7'
+#
+#   # Bright colors
+#   bright:
+#     black:   '0x565575'
+#     red:     '0xff5458'
+#     green:   '0x62d196'
+#     yellow:  '0xffb378'
+#     blue:    '0x65b2ff'
+#     magenta: '0x906cff'
+#     cyan:    '0x63f2f1'
+#     white:   '0xa6b3cc'
+# #}}}
+
 # }}}
 # }}}

@@ -7,11 +7,12 @@
 
 [core]
   excludesfile = ~/.gitignore_global
+  pager = diff-so-fancy | less --tabs=2 -RFX
 
-[pager]
-  log  = ~/.cargo/bin/diffr | less -R
-  show = ~/.cargo/bin/diffr | less -R
-  diff = ~/.cargo/bin/diffr | less -R
+# [pager]
+#   log  = ~/.cargo/bin/diffr | less -R
+#   show = ~/.cargo/bin/diffr | less -R
+#   diff = ~/.cargo/bin/diffr | less -R
 
 [format]
   pretty = format:%C(blue)%h %<(20,trunc)%C(green)%aN %>(15,trunc)%C(blue)%ar %C(green)%s

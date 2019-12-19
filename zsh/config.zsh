@@ -1,15 +1,5 @@
-# Paths {{{
-  export PATH="$PATH:/usr/local/opt/openssl@1.1/bin"
-  export PATH="$PATH:/usr/local/opt/ruby/bin"
-  export PATH="$PATH:/usr/local/lib/ruby/gems/2.6.0/bin"
-  export PATH="$PATH:/usr/local/opt/sqlite/bin"
-  export PATH="$PATH:/usr/local/bin"
-  export PATH="$PATH:$HOME/.cargo/bin"
-  export PATH="$PATH:$HOME/.local/bin"
-# }}}
-
 # Plugins {{{
-  zplugin light zdharma/fast-syntax-highlighting
+  # zplugin light zdharma/fast-syntax-highlighting
   zplugin light zsh-users/zsh-autosuggestions
   zplugin light zsh-users/zsh-completions
 
@@ -55,6 +45,9 @@
 
   export NNN_CONTEXT_COLORS=1234
   export NNN_COPIER=pbcopy
+
+  # make homebrew auto-update every day instead of the default of every minute
+  export HOMEBREW_AUTO_UPDATE_SECS=86400
 # }}}
 
 # Android {{{
@@ -73,4 +66,11 @@ export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
   zplugin light geometry-zsh/geometry
 # }}}
 
-export HTTP_PROXY='http://dev.arrianlg.studio'
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+
+# Paths {{{
+  export PATH="$HOME/.local/bin:$PATH"
+# }}}
+

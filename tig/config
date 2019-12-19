@@ -34,7 +34,7 @@ set main-view-id = yes
 # Bind Keymaps
 #######################################
 
-bind generic I !@sh -c "echo -n %(commit) | awk '{print $2}' | pbcopy"
+bind generic I !@sh -c "echo -n %(commit) | awk '{print $2}' | cut -c1-7 | pbcopy"
 
 
 #######################################
@@ -42,7 +42,7 @@ bind generic I !@sh -c "echo -n %(commit) | awk '{print $2}' | pbcopy"
 #######################################
 
 # color default white black
-# color cursor black yellow
+color cursor black cyan
 # color date cyan default
 # color delimiter cyan default
 # color line-number yellow default

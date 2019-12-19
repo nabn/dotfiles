@@ -1,5 +1,13 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
-  "coc.preferences.formatOnSaveFiletypes": ["typescript"],
-  "coc.source.ultisnips.enable": true
+  "coc.source.ultisnips.enable": true,
+  "typescript.suggestionActions.enabled": false,
+  "javascript.suggestionActions.enabled": false,
+  "languageserver": {
+    "reason": {
+      "command": "reason-language-server",
+      "filetypes": ["reason"]
+    }
+  },
+  "git.enableGutters": true
 }

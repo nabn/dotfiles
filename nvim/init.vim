@@ -1,6 +1,7 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
     Plug '/usr/local/bin/fzf'
+    Plug 'metakirby5/codi.vim'
     Plug 'alok/notational-fzf-vim'
     Plug 'ap/vim-css-color'
     Plug 'ayu-theme/ayu-vim'
@@ -34,17 +35,17 @@
 
   let g:nv_search_paths =['~/Google Drive/Notes']
   let g:nv_create_note_key = 'ctrl-x'
-  let g:python_host_prog='/usr/local/bin/python'
-  let g:python3_host_prog='/usr/bin/python3'
+  let g:python_host_prog='/usr/bin/python'
+  let g:python3_host_prog='/usr/local/opt/python@3.8/bin/python3'
   hi SpellBad gui=undercurl guisp=red term=undercurl cterm=undercurl
 
   set shellcmdflag=-ic                              " make Vim’s :! shell behave like your command prompt.
                                                     " https://stackoverflow.com/a/4642855/10926788
   set autoread                                      " if file changes outside of vim, redraw buffer
-  set linebreak
   set diffopt+=vertical
   set encoding=utf8
   set expandtab
+  set foldmethod=syntax
   set formatoptions+=j                              " delete comment character when joining commented lines
   set gdefault                                      " set global flag as default for :substitute
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -53,7 +54,7 @@
   set inccommand=nosplit
   set laststatus=2                                  " always show the statusline
   set lazyredraw
-  set list
+  set linebreak
   set listchars=tab:>-,trail:~,extends:>,precedes:<,eol:↩
   set mouse=a
   set nofoldenable
@@ -136,7 +137,7 @@
   nnoremap <c-b> :Buffers<CR>
   nnoremap <c-f> :Files<CR>
 
-  let $FZF_DEFAULT_COMMAND='fd --type f'
+  let $FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git --type f'
   let $FZF_DEFAULT_OPTS = ''
   let g:fzf_buffers_jump = 1
   inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
@@ -145,7 +146,7 @@
 
   command! -bang -nargs=* RgFzf
     \ call fzf#vim#grep(
-    \   'rg --column --line-number --no-heading --color=always --pretty --smart-case '
+    \   'rg --column --hidden --line-number --no-heading --color=always --pretty --smart-case '
     \ . <q-args>, 1,
     \   <bang>0 ? fzf#vim#with_preview('up:60%')
     \           : fzf#vim#with_preview('right:50%:hidden', '?'),
@@ -174,20 +175,6 @@
   vnoremap <leader>x JV:s/>\s*</>\r</<CR>
 " }}}
 
-" Misc {{{
-  let g:nv_use_short_pathnames=1
-  let ayucolor='mirage' " mirage | light | dark
-
-  colorscheme papercolor
-
-  if has('nvim')                                    " fix for nvim on iterm
-    nmap <BS> <C-W>h
-  endif
-
-  " prevent opening 1 when I mean :e!
-  au BufNew 1 throw 'You ment to :e! but did :e1'
-" }}}
-
 " CoC {{{
   inoremap <silent><expr> <c-space> coc#refresh()
   set updatetime=300
@@ -212,8 +199,6 @@
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> rn <Plug>(coc-rename)
-  autocmd filetype javascript,typescript vmap gq <Plug>(coc-format-selected)
-  autocmd filetype javascript,typescript nmap gq <Plug>(coc-format-selected)
 
   " Use K for show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -229,7 +214,7 @@
   augroup mygroup
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json,javascript setl formatexpr=CocAction('formatSelected')
+    autocmd FileType typescript,json,javascript,javascriptreact setl formatexpr=CocAction('formatSelected')
   augroup end
 
   command! -nargs=0 Format :call CocAction('format')
@@ -238,8 +223,8 @@
   " map ff ::AutoFix<CR>:OrganiseImports<CR>:Format<CR>
 
   " navigate chunks of current buffer
-  nmap [g <Plug>(coc-git-prevchunk)
-  nmap ]g <Plug>(coc-git-nextchunk)
+  nmap [c <Plug>(coc-git-prevchunk)
+  nmap ]c <Plug>(coc-git-nextchunk)
   " show chunk diff at current position
   nmap gs <Plug>(coc-git-chunkinfo)
   " show commit contains current position
@@ -278,7 +263,7 @@ endfunction
 let g:lightline = {
     \   'colorscheme': 'ayu',
     \   'active': {
-    \     'left': [ [ 'mode',      'paste'],
+    \     'left': [ [ 'mode',      'paste', 'gitbranch', 'blame'],
     \               [ 'cocstatus', 'readonly', 'modified', 'filename' ] ],
     \   'right':  [ [  'filetype', 'blame', 'fileencoding', 'lineinfo', 'percent' ],
     \               ],
@@ -334,4 +319,17 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" }}}
+
+" Misc {{{
+  let g:vim_json_syntax_conceal = 1
+  let g:nv_use_short_pathnames=1
+  let ayucolor='mirage' " mirage | light | dark
+
+  colorscheme ayu
+
+  " prevent opening 1 when I mean :e!
+  au BufNew 1 throw 'You ment to :e! but did :e1'
+
+  au VimLeave * set guicursor=a:underline
 " }}}

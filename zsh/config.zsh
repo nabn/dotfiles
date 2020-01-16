@@ -1,5 +1,5 @@
 # Plugins {{{
-  # zplugin light zdharma/fast-syntax-highlighting
+  zplugin light zdharma/fast-syntax-highlighting
   zplugin light zsh-users/zsh-autosuggestions
   zplugin light zsh-users/zsh-completions
 
@@ -23,6 +23,8 @@
   compinit
   # End of lines added by compinstall
 
+  # without this, commands starting with `man` are slow
+  unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'
 # }}}
 
 # LESS {{{
@@ -38,10 +40,11 @@
   HISTTIMEFORMAT='%F %T '
 
   fpath=(/usr/local/share/zsh-completions $fpath)
+  fpath+=${ZDOTDIR:-~}/.zsh_functions
 
   export EDITOR=nvim
   export REACT_EDITOR=nvim
-  export MANPAGER="nvim -R -c 'filetype plugin on | set ft=man' -"
+  export MANPAGER="nvim -c 'set ft=man' -"
 
   export NNN_CONTEXT_COLORS=1234
   export NNN_COPIER=pbcopy
@@ -66,11 +69,17 @@ export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
   zplugin light geometry-zsh/geometry
 # }}}
 
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+# export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
+# export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+# export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+# export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+# export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 
 # Paths {{{
+  export PATH="/usr/local/opt/python@3.8/bin:$PATH"
   export PATH="$HOME/.local/bin:$PATH"
 # }}}
 
+# Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+# `python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+#   /usr/local/opt/python/libexec/bin

@@ -1,56 +1,59 @@
 # Plugins {{{
-  zplugin light zdharma/fast-syntax-highlighting
-  zplugin light zsh-users/zsh-autosuggestions
-  zplugin light zsh-users/zsh-completions
+source ~/.zinit/bin/zinit.zsh
+zinit light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light tj/git-extras
 
-  zplugin load agkozak/zsh-z
+zinit load agkozak/zsh-z
+zinit load andrewferrier/fzf-z
+zinit load geometry-zsh/geometry
 # }}}
 
 # Setup {{{
-  setopt appendhistory
+setopt appendhistory
 
-  bindkey -v
-  bindkey '' history-incremental-search-backward
-  bindkey '' autosuggest-accept
+bindkey -v
+bindkey '' history-incremental-search-backward
+bindkey '' autosuggest-accept
 
-  # case-insensitive completion
-  # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# case-insensitive completion
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-  # The following lines were added by compinstall
-  zstyle :compinstall filename '/Users/nabeen.khadka/.zshrc'
-  autoload -Uz compinit
-  compinit
-  # End of lines added by compinstall
+# The following lines were added by compinstall
+zstyle :compinstall filename '/Users/nabeen.khadka/.zshrc'
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
 
-  # without this, commands starting with `man` are slow
-  unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'
+# without this, commands starting with `man` are slow
+unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'
 # }}}
 
-# LESS {{{
-  export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
-  export LESS=" -R "
-  export LESS=-Ri # case-insensitive search
-# }}}
+# Variables {{{
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+HISTTIMEFORMAT='%F %T '
 
-# Other Variables {{{
-  HISTFILE=~/.zsh_history
-  HISTSIZE=10000
-  SAVEHIST=10000
-  HISTTIMEFORMAT='%F %T '
+fpath=(/usr/local/share/zsh-completions $fpath)
+fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-  fpath=(/usr/local/share/zsh-completions $fpath)
-  fpath+=${ZDOTDIR:-~}/.zsh_functions
+export EDITOR=nvim
+export REACT_EDITOR=nvim
+export MANPAGER="nvim -c 'set ft=man' -"
 
-  export EDITOR=nvim
-  export REACT_EDITOR=nvim
-  export MANPAGER="nvim -c 'set ft=man' -"
+export NNN_CONTEXT_COLORS=1234
+export NNN_COPIER=pbcopy
 
-  export NNN_CONTEXT_COLORS=1234
-  export NNN_COPIER=pbcopy
+# less
+export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESS=" -R"
+export LESS=-Ri # case-insensitive search
 
-  # make homebrew auto-update every day instead of the default of every minute
-  export HOMEBREW_AUTO_UPDATE_SECS=86400
+# make homebrew auto-update every day instead of the default of every minute
+export HOMEBREW_AUTO_UPDATE_SECS=86400
 # }}}
 
 # Android {{{
@@ -65,21 +68,25 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
 # }}}
 
-# Prompt {{{
-  zplugin light geometry-zsh/geometry
+# Paths {{{
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="$HOME/Library/Python/3.8/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # }}}
 
+# homebrew flag logs {{{
 # export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
 # export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 # export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
 # export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 # export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
 
-# Paths {{{
-  export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-  export PATH="$HOME/.local/bin:$PATH"
-# }}}
 
 # Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
 # `python3`, `python3-config`, `pip3` etc., respectively, have been installed into
 #   /usr/local/opt/python/libexec/bin
+# }}}

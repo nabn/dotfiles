@@ -1,9 +1,9 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
     Plug '/usr/local/bin/fzf'
-    Plug 'metakirby5/codi.vim'
     Plug 'alok/notational-fzf-vim'
     Plug 'ap/vim-css-color'
+    Plug 'arcticicestudio/nord-vim'
     Plug 'ayu-theme/ayu-vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'edkolev/tmuxline.vim'
@@ -14,8 +14,8 @@
     Plug 'junegunn/vim-easy-align'
     Plug 'mattn/emmet-vim'
     Plug 'mcchrish/nnn.vim'
+    Plug 'metakirby5/codi.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'reedes/vim-colors-pencil'
     Plug 'rhysd/git-messenger.vim'
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
     Plug 'tpope/vim-fugitive'
@@ -42,13 +42,14 @@
   set shellcmdflag=-ic                              " make Vim’s :! shell behave like your command prompt.
                                                     " https://stackoverflow.com/a/4642855/10926788
   set autoread                                      " if file changes outside of vim, redraw buffer
+  set splitright
   set diffopt+=vertical
   set encoding=utf8
   set expandtab
   set foldmethod=syntax
   set formatoptions+=j                              " delete comment character when joining commented lines
   set gdefault                                      " set global flag as default for :substitute
-  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set hidden                                        " enable multiple unsaved buffers to be maintained
   set ignorecase
   set inccommand=nosplit
@@ -75,6 +76,7 @@
   set timeoutlen=300
   set undofile
   set wildignorecase                                " case insensitive filename completion
+  set visualbell
   set wrap
   syntax enable
 
@@ -114,14 +116,16 @@
   cnoremap \>s/ \>smagic/
   nnoremap :g/ :g/\v
   nnoremap :g// :g//
-  nnoremap <leader>y :<C-u>CocList -A normal yank<cr>
 
   command! -nargs=+ Rg silent grep! <args> | copen 7
 
   nnoremap <leader>A :RgFzf<space>
   nnoremap <leader>a :Rg<space>
   nnoremap <leader>af :RgFzf<space>
-  nnoremap <leader>y :<C-u>CocList -A normal yank<cr>
+  " nnoremap <leader>y :<C-u>CocList -A --normal yank<cr>
+  vnoremap <leader>y "+y
+  nnoremap <leader>y "+y
+  nnoremap <leader>p "+p
 
   nnoremap <leader>gs :Gstatus<CR>
   xmap ga <Plug>(EasyAlign)
@@ -332,4 +336,26 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
   au BufNew 1 throw 'You ment to :e! but did :e1'
 
   au VimLeave * set guicursor=a:underline
+
+  " From garyBernhardt's vimrc
+  " Jump to the last cursor position unless it is
+  " invalid or in an event handler
+  au bufreadpost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
+
+  map <up>     :resize          -5<cr>
+  map <down>   :resize          +5<cr>
+  map <left>   :vertical resize -5<cr>
+  map <right>  :vertical resize +5<cr>
+
+  " Show tabs and trailing whitespace
+  set list listchars=tab:>>,trail:~
+  if has('multi_byte')
+      set listchars=tab:»»,trail:•
+      set fillchars=vert:┃ showbreak=↪
+  endif
+
+  ''
 " }}}

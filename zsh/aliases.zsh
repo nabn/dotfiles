@@ -24,13 +24,14 @@
   alias sonar-console='/opt/sonarqube/bin/macosx-universal-64/sonar.sh console'
   alias tmux='tmux -2'
   alias tree=gtree
-  alias v='nvim `fzf`'
+  alias v='nvim `fzf-tmux`'
   alias vi='nvim'
   alias view='nvim -u NORC -R'
   alias watchstatus='while true; do clear; git status -s -b; sleep 5; done'
   alias za='nvim ~/.config/zsh/aliases.zsh'
   alias ze='nvim ~/.config/zsh/config.zsh'
-  alias zr='source ~/.config/zsh/*.zsh'
+  alias zreload='source ~/.config/zsh/*.zsh'
+  alias zt='zshz -l | fzf-tmux'
 
   alias ..='cd ..'
   alias ...='cd ..;cd ..'

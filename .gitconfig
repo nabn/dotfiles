@@ -6,13 +6,8 @@
   find-file = "!for branch in $(git for-each-ref --format=\"%(refname)\" refs/heads); do if git ls-tree -r --name-only $branch | grep \"$1\" > /dev/null; then  echo \"${branch}:\"; git ls-tree -r --name-only $branch | nl -bn -w3 | grep \"$1\"; fi; done; :"
 
 [core]
-  excludesfile = ~/.gitignore_global
+  excludesfile = /Users/nabeen.khadka/.gitignore_global
   pager = diff-so-fancy | less --tabs=2 -RFX
-
-# [pager]
-#   log  = ~/.cargo/bin/diffr | less -R
-#   show = ~/.cargo/bin/diffr | less -R
-#   diff = ~/.cargo/bin/diffr | less -R
 
 [format]
   pretty = format:%C(blue)%h %<(20,trunc)%C(green)%aN %>(15,trunc)%C(blue)%ar %C(green)%s
@@ -34,5 +29,33 @@
   driver = npx npm-merge-driver merge %A %O %B %P
 
 [user]
-  name = nabn
-  email = nabn@protonmail.com
+  name = nabeen
+  email = nabeen.khadka@arria.com
+
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+
+# colorschemes
+[color]
+  ui = auto
+
+[color "branch"]
+  current = yellow
+  local = 241
+  remote = green
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
+
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = magenta

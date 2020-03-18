@@ -15,12 +15,13 @@
   alias j=jobs
   alias light='base16_gruvbox-light-medium'
   alias ll='exa -l'
+  alias lh='exa -lah'
   alias ls='exa'
   alias mux=tmuxinator
   alias please='sudo $(fc -ln -1)'
   alias rg='rg --pretty --smart-case'
   alias rm='trash -v'
-  alias serve='python3 -m http.server 8080 --bind 0.0.0.0'
+  # alias serve='python3 -m http.server 8080 --bind 0.0.0.0'
   alias sonar-console='/opt/sonarqube/bin/macosx-universal-64/sonar.sh console'
   alias tmux='tmux -2'
   alias tree=gtree
@@ -51,14 +52,14 @@
   }
   watchstatus='while true; do clear; git status -s -b; sleep 5; done'
 
-  alias connect_vpn="osascript\
-    -e 'tell Application \"Tunnelblick\"'\
-    -e 'connect(get name of first configuration)'\
-    -e 'end tell'"
-  alias disconnect_vpn="osascript\
-    -e 'tell Application \"Tunnelblick\"'\
-    -e 'disconnect(get name of first configuration)'\
-    -e 'end tell'"
+  function take {
+    mkdir $1 && cd $1
+  }
+
+  function deploy {
+    npm run deploy:"$1" &&\
+      terminal-notifier -title "CSP deployment" -message "Deployment to $1 successful"
+  }
 # }}}
 
 # Git {{{

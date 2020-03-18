@@ -1,10 +1,17 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
+    " Colorschemes {{{
+      Plug 'ap/vim-css-color'
+      Plug 'arcticicestudio/nord-vim'
+      Plug 'ayu-theme/ayu-vim'
+      Plug 'endel/vim-github-colorscheme'
+      Plug 'morhetz/gruvbox'
+      Plug 'jordwalke/vim-taste'
+      Plug 'fenetikm/falcon'
+    " }}}
+
     Plug '/usr/local/bin/fzf'
     Plug 'alok/notational-fzf-vim'
-    Plug 'ap/vim-css-color'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'ayu-theme/ayu-vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'edkolev/tmuxline.vim'
     Plug 'itchyny/lightline.vim'
@@ -22,8 +29,14 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
 
+    Plug 'svermeulen/vim-yoink'
+
     Plug 'prurigro/vim-polyglot-darkcloud'
     Plug 'MaxMEllon/vim-jsx-pretty'
+
+    Plug 'honza/vim-snippets'
+
+    Plug 'alampros/vim-styled-jsx'
   call plug#end()
 " }}}
 
@@ -35,8 +48,8 @@
 
   let g:nv_search_paths =['~/Google Drive/Notes']
   let g:nv_create_note_key = 'ctrl-x'
-  let g:python_host_prog='/usr/bin/python'
-  let g:python3_host_prog='/usr/local/opt/python@3.8/bin/python3'
+  " let g:python_host_prog='/usr/bin/python'
+  let g:python3_host_prog='/usr/local/bin/python3'
   hi SpellBad gui=undercurl guisp=red term=undercurl cterm=undercurl
 
   set shellcmdflag=-ic                              " make Vim’s :! shell behave like your command prompt.
@@ -134,7 +147,7 @@
 
   " list matches
   " can be achieved with [I /]I
-  " nnoremap <leader>lm :vim // %<CR>:copen<CR>
+  nnoremap <leader>lm :vim // %<CR>:copen<CR>
 " }}}
 
 " FZF {{{
@@ -186,8 +199,9 @@
 
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
+  verbose inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
+        \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -222,8 +236,8 @@
   augroup end
 
   command! -nargs=0 Format :call CocAction('format')
-  " command! -nargs=0 AutoFix :CocCommand tsserver.executeAutofix
-  " command! -nargs=0 OrganiseImports :CocCommand tsserver.organizeImports
+  command! -nargs=0 AutoFix :CocCommand tsserver.executeAutofix
+  command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
   " map ff ::AutoFix<CR>:OrganiseImports<CR>:Format<CR>
 
   " navigate chunks of current buffer
@@ -330,12 +344,14 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
   let g:nv_use_short_pathnames=1
   let ayucolor='mirage' " mirage | light | dark
 
-  colorscheme ayu
+  let g:gruvbox_contrast_dark='hard'
+  " let g:gruvbox_italic=1
+  colorscheme gruvbox
 
   " prevent opening 1 when I mean :e!
-  au BufNew 1 throw 'You ment to :e! but did :e1'
-
-  au VimLeave * set guicursor=a:underline
+  au BufNew 1 throw 'You meant to :e! but did :e1'
+  au VimLeave * set guicursor=a:hor20
+  se guicursor=n-v-c:hor50,i:ver50,r:block
 
   " From garyBernhardt's vimrc
   " Jump to the last cursor position unless it is
@@ -357,5 +373,17 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
       set fillchars=vert:┃ showbreak=↪
   endif
 
-  ''
+  nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+  nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+  nmap p <plug>(YoinkPaste_p)
+  nmap P <plug>(YoinkPaste_P)
+
+  " sort imports
+  nnoremap <leader>s viB:sort<cr>
+  vnoremap <leader>s :sort<cr>
+
 " }}}
+let g:falcon_airline=1
+let g:airline_theme="falcon"
+colo falcon

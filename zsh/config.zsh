@@ -2,12 +2,19 @@
 source ~/.zinit/bin/zinit.zsh
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-completions
+# zinit light zsh-users/zsh-completions
 zinit light tj/git-extras
 
 zinit load agkozak/zsh-z
 zinit load andrewferrier/fzf-z
+
 zinit load geometry-zsh/geometry
+
+zinit light Aloxaf/fzf-tab
+# }}}
+
+# Prompt{{{
+GEOMETRY_RPROMPT+=(geometry_jobs geometry_exec_time)
 # }}}
 
 # Setup {{{
@@ -69,18 +76,15 @@ export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
 # }}}
 
 # Paths {{{
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
-export PATH="$HOME/Library/Python/3.8/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+# export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 # }}}
 
 # homebrew flag logs {{{
-# export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
 # export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-# export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
 # export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 # export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 # export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
@@ -90,3 +94,5 @@ export PATH="$HOME/.local/bin:$PATH"
 # `python3`, `python3-config`, `pip3` etc., respectively, have been installed into
 #   /usr/local/opt/python/libexec/bin
 # }}}
+
+alias bukus="bukuserver run --host 127.0.0.1 --port 5001"

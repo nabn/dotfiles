@@ -1,14 +1,12 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
-    " Colorschemes {{{
-      Plug 'ap/vim-css-color'
-      Plug 'arcticicestudio/nord-vim'
-      Plug 'ayu-theme/ayu-vim'
-      Plug 'endel/vim-github-colorscheme'
-      Plug 'morhetz/gruvbox'
-      Plug 'jordwalke/vim-taste'
-      Plug 'fenetikm/falcon'
-    " }}}
+    " Colorschemes 
+    Plug 'ap/vim-css-color'
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'endel/vim-github-colorscheme'
+    Plug 'morhetz/gruvbox'
+    Plug 'fenetikm/falcon'
+    "-----
 
     Plug '/usr/local/bin/fzf'
     Plug 'alok/notational-fzf-vim'
@@ -272,19 +270,13 @@ endfun
 com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
 
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
-
 let g:lightline = {
-    \   'colorscheme': 'ayu',
+    \   'colorscheme': 'falcon',
     \   'active': {
     \     'left': [ [ 'mode',      'paste', 'gitbranch', 'blame'],
     \               [ 'cocstatus', 'readonly', 'modified', 'filename' ] ],
-    \   'right':  [ [  'filetype', 'blame', 'fileencoding', 'lineinfo', 'percent' ],
-    \               ],
+    \   'right':  [ [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+    \               [ 'blame' ]],
     \   },
     \   'component_function': {
     \     'cocstatus': 'coc#status',
@@ -292,6 +284,28 @@ let g:lightline = {
     \     'blame': 'LightlineGitBlame'
     \   },
     \ }
+
+" let g:lightline = {
+"   \ 'active': {
+"   \   'left': [
+"   \     [ 'mode', 'paste' ],
+"   \     [ 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+"   \   ],
+"   \   'right':[
+"   \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+"   \     [ 'blame' ]
+"   \   ],
+"   \ },
+"   \ 'component_function': {
+"   \   'blame': 'LightlineGitBlame',
+"   \ }
+" \ }
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
 
 let g:tmuxline_powerline_separators=0
 
@@ -304,10 +318,28 @@ let g:tmuxline_preset = {
 " }}}
 
 " NnnPicker{{{
-  let g:nnn#layout = { 'right': '~20%' }
+  " Floating window (neovim)
+  function! s:layout()
+    let buf = nvim_create_buf(v:false, v:true)
+
+    let height = &lines - (float2nr(&lines / 3))
+    let width = float2nr(&columns - (&columns * 2 / 3))
+
+    let opts = {
+          \ 'relative': 'editor',
+          \ 'row': 2,
+          \ 'col': 8,
+          \ 'width': width,
+          \ 'height': height
+          \ }
+
+    call nvim_open_win(buf, v:true, opts)
+  endfunction
+
+  let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
   let g:nnn#set_default_mappings = 0
   let g:nnn#command = 'nnn -H'
-  nnoremap <leader><cr> :NnnPicker<cr>
+  nnoremap <leader><cr> :NnnPicker '%:p:h'<CR>
 " }}}
 
 " Goyo & Limelight {{{
@@ -350,8 +382,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
-  au VimLeave * set guicursor=a:hor20
-  se guicursor=n-v-c:hor50,i:ver50,r:block
+  au VimLeave,VimSuspend * set guicursor=a:hor20
+  au VimEnter,VimResume * set guicursor=a:block
+  " se guicursor=n-v-c:hor50,i:ver50,r:block
 
   " From garyBernhardt's vimrc
   " Jump to the last cursor position unless it is
@@ -375,7 +408,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
   nmap <c-n> <plug>(YoinkPostPasteSwapBack)
   nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
 
@@ -384,6 +416,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
   vnoremap <leader>s :sort<cr>
 
 " }}}
-let g:falcon_airline=1
-let g:airline_theme="falcon"
+
 colo falcon
+nnoremap ff :Format<CR>

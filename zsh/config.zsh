@@ -14,7 +14,7 @@ zinit light Aloxaf/fzf-tab
 # }}}
 
 # Prompt{{{
-GEOMETRY_RPROMPT+=(geometry_jobs geometry_exec_time)
+GEOMETRY_PROMPT+=(geometry_jobs geometry_exec_time)
 # }}}
 
 # Setup {{{
@@ -65,10 +65,10 @@ export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 # Android {{{
 export GRADLE_HOME='/usr/local/opt/gradle'
-export ANDROID_NDK_HOME='/usr/local/share/android-ndk'
-export ANDROID_SDK_ROOT='/usr/local/share/android-sdk'
-export ANDROID_HOME='/usr/local/share/android-sdk'
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-12.0.2.jdk/Contents/Home
+# export ANDROID_NDK_HOME='/usr/local/share/android-ndk'
+# export ANDROID_SDK_ROOT='/usr/local/share/android-sdk'
+# export ANDROID_HOME='/usr/local/share/android-sdk'
+export ANDROID_HOME='/Users/nabeen.khadka/Library/Android/sdk'
 export PATH=$PATH:$GRADLE_HOME/bin
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -78,6 +78,8 @@ export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
 # Paths {{{
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+
 export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # export PATH="$HOME/Library/Python/3.7/bin:$PATH"
@@ -95,4 +97,3 @@ export PATH="$HOME/.local/bin:$PATH"
 #   /usr/local/opt/python/libexec/bin
 # }}}
 
-alias bukus="bukuserver run --host 127.0.0.1 --port 5001"

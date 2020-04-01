@@ -14,9 +14,8 @@
   alias ivi='nvim' # common misspelling
   alias j=jobs
   alias light='base16_gruvbox-light-medium'
-  alias ll='exa -l'
-  alias lh='exa -lah'
-  alias ls='exa'
+  alias ll='exa -lah'
+  alias ls='exa -l --sort=newest'
   alias mux=tmuxinator
   alias please='sudo $(fc -ln -1)'
   alias rg='rg --pretty --smart-case'
@@ -33,6 +32,7 @@
   alias ze='nvim ~/.config/zsh/config.zsh'
   alias zreload='source ~/.config/zsh/*.zsh'
   alias zt='zshz -l | fzf-tmux'
+  alias pd='pushd; z '
 
   alias ..='cd ..'
   alias ...='cd ..;cd ..'

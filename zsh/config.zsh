@@ -2,7 +2,7 @@
 source ~/.zinit/bin/zinit.zsh
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-# zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-completions
 zinit light tj/git-extras
 
 zinit load agkozak/zsh-z
@@ -14,7 +14,8 @@ zinit light Aloxaf/fzf-tab
 # }}}
 
 # Prompt{{{
-GEOMETRY_PROMPT+=(geometry_jobs geometry_exec_time)
+GEOMETRY_PATH_SHOW_BASENAME=true
+GEOMETRY_PROMPT=(geometry_status geometry_path geometry_echo geometry_jobs )
 # }}}
 
 # Setup {{{

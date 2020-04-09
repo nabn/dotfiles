@@ -2,25 +2,26 @@
 # http://jonas.nitro.dk/tig/tigrc.5.html
 #
 # Visualization
-set line-graphics = utf-8
+set commit-order      = topo
+set diff-context      = 1
+set focus-child       = yes
 set horizontal-scroll = 33%
-set show-notes = yes
-set show-changes = yes
+set ignore-case       = no
+set ignore-space      = some
+set line-graphics     = utf-8
+set show-changes      = yes
+set show-notes        = yes
 set split-view-height = 70%
-set tab-size = 2
-set diff-context = 1
-set ignore-space = some
-set commit-order = topo
-set ignore-case = no
-set wrap-lines = no
-set focus-child = yes
+set tab-size          = 2
+set wrap-lines        = no
 
 set main-view-date = relative
 set main-view-id = yes
 
 # Bind Keymaps
-bind generic I !@sh -c "echo -n %(commit) | awk '{print $2}' | cut -c1-7 | pbcopy"
-
+bind generic I !@sh -c "echo -n %(commit) | awk '{print $2}' | cut -c1-7 | pbcopy" # legacy
+bind generic Y !@sh -c "echo -n %(commit) | awk '{print $2}' | cut -c1-7 | pbcopy"
 
 # Color Settings
 color cursor black cyan
+source ~/.config/tig/molokai-like.tigrc

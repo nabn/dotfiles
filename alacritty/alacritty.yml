@@ -97,29 +97,29 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Inconsolata
+    family: Hasklig
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
 
   # Bold font face
-  bold:
+  # bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Inconsolata
+    # family: Hasklig
 
     # The `style` can be specified to pick a specific face.
     #style: Bold
 
   # Italic font face
-  italic:
+  # italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Operator Mono
+    # family: Hasklig
 
     # The `style` can be specified to pick a specific face.
     #style: Italic
@@ -136,20 +136,20 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 16.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
    x: 0
-   y: 4
+   y: 2
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
   glyph_offset:
    x: 0
-   y: 3
+   y: 2
 
   # Thin stroke font rendering (macOS only)
   #
@@ -543,7 +543,7 @@ key_bindings:
   #- { key: M,      mods: Command,            action: Minimize         }
   #- { key: Q,      mods: Command,            action: Quit             }
   #- { key: W,      mods: Command,            action: Quit             }
-  - { key: N,      mods: Command,            action: SpawnNewInstance }
+  -  { key: N,      mods: Command,            action: SpawnNewInstance }
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
 
 #debug:
@@ -567,266 +567,34 @@ key_bindings:
   # Print all received window events.
   #print_events: false
 
-# ColorSchemes {{{
-# Default {{{
-# Colors (Tomorrow Night Bright)
+# Use custom cursor colors. If true, display the cursor in the cursor.foreground
+# and cursor.background colors, otherwise invert the colors of the cursor.
+custom_cursor_colors:
+  true
 
-colors:
-  # Default colors
-  primary:
-   background: '#000000'
-   foreground: '#eaeaea'
-
-   # Bright and dim foreground colors
-   #
-   # The dimmed foreground color is calculated automatically if it is not present.
-   # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-   # is `false`, the normal foreground color will be used.
-   dim_foreground: '#9a9a9a'
-   bright_foreground: '#ffffff'
-
-  # Cursor colors
-  #
-  # Colors which should be used to draw the terminal cursor. If these are
-  # unset, the cursor color will be the inverse of the cell color.
-  cursor:
-   text: '#000000'
-   cursor: '#ffffff'
-
-  # Vi mode cursor colors
-  #
-  # Colors for the cursor when the vi mode is active. If these are unset, the
-  # cursor color will be the inverse of the cell color.
-  vi_mode_cursor:
-   text: '#000000'
-   cursor: '#ffffff'
-
-  # Selection colors
-  #
-  # Colors which should be used to draw the selection area. If selection
-  # background is unset, selection color will be the inverse of the cell colors.
-  # If only text is unset the cell text color will remain the same.
-  selection:
-   text: '#eaeaea'
-   background: '#404040'
-
-  # Normal colors
-  normal:
-   black:   '#000000'
-   red:     '#d54e53'
-   green:   '#b9ca4a'
-   yellow:  '#e6c547'
-   blue:    '#7aa6da'
-   magenta: '#c397d8'
-   cyan:    '#70c0ba'
-   white:   '#eaeaea'
-
-  # Bright colors
-  bright:
-   black:   '#666666'
-   red:     '#ff3334'
-   green:   '#9ec400'
-   yellow:  '#e7c547'
-   blue:    '#7aa6da'
-   magenta: '#b77ee0'
-   cyan:    '#54ced6'
-   white:   '#ffffff'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  dim:
-   black:   '#000000'
-   red:     '#8c3336'
-   green:   '#7a8530'
-   yellow:  '#97822e'
-   blue:    '#506d8f'
-   magenta: '#80638e'
-   cyan:    '#497e7a'
-   white:   '#9a9a9a'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '#ff00ff' }`
-  #
-  #indexed_colors: []
-
-# }}}
-
-# Light {{{
-# Pencil Light {{{
 # colors:
-#  # Default Colors
-#  primary:
-#    background: '0xf1f1f1'
-#    foreground: '0x424242'
-#  # Normal colors
-#  normal:
-#    black:   '0x212121'
-#    red:     '0xc30771'
-#    green:   '0x10a778'
-#    yellow:  '0xa89c14'
-#    blue:    '0x008ec4'
-#    magenta: '0x523c79'
-#    cyan:    '0x20a5ba'
-#    white:   '0xe0e0e0'
-#  # Bright colors
-#  bright:
-#    black:   '0x212121'
-#    red:     '0xfb007a'
-#    green:   '0x5fd7af'
-#    yellow:  '0xf3e430'
-#    blue:    '0x20bbfc'
-#    magenta: '0x6855de'
-#    cyan:    '0x4fb8cc'
-#    white:   '0xf1f1f1'
-#    # }}}
-
-# PaperColor Light 256 {{{
-# # https://github.com/NLKNguyen/papercolor-theme
-# # https://www.reddit.com/r/vim/comments/36xzbs/vim_paper_color_theme_inspired_by_googles/crqbfpa/
-# colors:
-#   # Default colors
 #   primary:
-#     background: '0xeeeeee'
-#     foreground: '0x4d4d4c'
-#
-#   # Colors the cursor will use if `custom_cursor_colors` is true
+#     background: "#020221"
+#     foreground: "#b4b4b9"
 #   cursor:
-#     text: '0xf3f3f3'
-#     cursor: '0x4d4d4c'
-#
-#   # Normal colors
+#     text:       "#020221"
+#     cursor:     "#ffe8c0"
 #   normal:
-#     black:   '0xededed'
-#     red:     '0xd7005f'
-#     green:   '0x718c00'
-#     yellow:  '0xd75f00'
-#     blue:    '0x4271ae'
-#     magenta: '0x8959a8'
-#     cyan:    '0x3e999f'
-#     white:   '0x4d4d4c'
-#
-#   # Bright colors
+#     black:      "#000004"
+#     red:        "#ff3600"
+#     green:      "#718e3f"
+#     yellow:     "#ffc552"
+#     blue:       "#399ee6"
+#     magenta:    "#ff761a"
+#     cyan:       "#34bfa4"
+#     white:      "#b4b4b9"
 #   bright:
-#     black:   '0x949494'
-#     red:     '0xd7005f'
-#     green:   '0x718c00'
-#     yellow:  '0xd75f00'
-#     blue:    '0x4271ae'
-#     magenta: '0x8959a8'
-#     cyan:    '0x3e999f'
-#     white:   '0xf5f5f5'
-# # # }}}
-# }}}
-
-# Dark {{{
-# Gruvbox dark {{{
-# colors:
-#   # Default colors
-#   primary:
-#     # hard contrast: background = '0x1d2021'
-#     background: '0x282828'
-#     # soft contrast: background = '0x32302f'
-#     foreground: '0xebdbb2'
+#     black:      "#020221"
+#     red:        "#ff8e78"
+#     green:      "#b1bf75"
+#     yellow:     "#ffd392"
+#     blue:       "#99a4bc"
+#     magenta:    "#ffb07b"
+#     cyan:       "#8bccbf"
+#     white:      "#f8f8ff"
 #
-#   # Normal colors
-#   normal:
-#     black:   '0x282828'
-#     red:     '0xcc241d'
-#     green:   '0x98971a'
-#     yellow:  '0xd79921'
-#     blue:    '0x458588'
-#     magenta: '0xb16286'
-#     cyan:    '0x689d6a'
-#     white:   '0xa89984'
-#
-#   # Bright colors
-#   bright:
-#     black:   '0x928374'
-#     red:     '0xfb4934'
-#     green:   '0xb8bb26'
-#     yellow:  '0xfabd2f'
-#     blue:    '0x83a598'
-#     magenta: '0xd3869b'
-#     cyan:    '0x8ec07c'
-#     white:   '0xebdbb2'
-# # }}}
-
-# Ayu Mirage {{{
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x1f2430'
-#     foreground: '0xcbccc6'
-#
-#   # Normal colors
-#   normal:
-#     black: '0x01060E'
-#     red: '0xEA6C73'
-#     green: '0x91B362'
-#     yellow: '0xF9AF4F'
-#     blue: '0x53BDFA'
-#     magenta: '0xFAE994'
-#     cyan: '0x90E1C6'
-#     white: '0xC7C7C7'
-#
-#   # Bright colors
-#   bright:
-#     black: '0x686868'
-#     red: '0xF07178'
-#     green: '0xC2D94C'
-#     yellow: '0xFFB454'
-#     blue: '0x59C2FF'
-#     magenta: '0xFFEE99'
-#     cyan: '0x95E6CB'
-#     white: '0xFFFFFF'
-# # }}}
-
-# Falcon {{{
-# # by fenetikm, https://github.com/fenetikm/falcon
-# colors:
-#   # Default colors
-#   primary:
-#     background: "0x020221"
-#     foreground: "0xb4b4b9"
-#
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: "0x020221"
-#     cursor: "0xffe8c0"
-#
-#   # Normal colors
-#   normal:
-#     black: "0x000004"
-#     red: "0xff3600"
-#     green: "0x718e3f"
-#     yellow: "0xffc552"
-#     blue: "0x635196"
-#     magenta: "0xff761a"
-#     cyan: "0x34bfa4"
-#     white: "0xb4b4b9"
-#
-#   # Bright colors
-#   bright:
-#     black: "0x020221"
-#     red: "0xff8e78"
-#     green: "0xb1bf75"
-#     yellow: "0xffd392"
-#     blue: "0x99a4bc"
-#     magenta: "0xffb07b"
-#     cyan: "0x8bccbf"
-#     white: "0xf8f8ff"
-#
-# # Use custom cursor colors. If true, display the cursor in the cursor.foreground
-# # and cursor.background colors, otherwise invert the colors of the cursor.
-# custom_cursor_colors:
-#   true
-#   # }}}
-# }}}
-# }}}

@@ -8,7 +8,8 @@
 
 [core]
   excludesfile = /Users/nabeen.khadka/.gitignore_global
-  pager = diff-so-fancy | less --tabs=2 -RFX
+  # pager = diff-so-fancy | less --tabs=2 -RFX
+  pager = delta --dark --plus-color="#012800" --minus-color="#340001"
 
 [format]
   pretty = format:%C(blue)%h %<(20,trunc)%C(green)%aN %>(15,trunc)%C(blue)%ar %C(green)%s
@@ -28,6 +29,7 @@
 [merge "npm-merge-driver"]
   name = automatically merge npm lockfiles
   driver = npx npm-merge-driver merge %A %O %B %P
+
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
@@ -36,27 +38,10 @@
   cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
 
-# colorschemes
-[color]
-  ui = auto
-
-[color "branch"]
-  current = yellow
-  local = 241
-  remote = green
-
-[color "diff"]
-  meta = yellow
-  frag = magenta
-  old = red
-  new = green
-
-[color "status"]
-  added = green
-  changed = yellow
-  untracked = magenta
 [user]
   useConfigOnly = true
+  name = nabeen
+  email = nabeen.khadka@arria.com
 [user "arriabitbucket"]
   name = Nabeen Khadka
   email = nabeen.khadka@arria.com

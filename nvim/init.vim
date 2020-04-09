@@ -27,6 +27,8 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
 
+    Plug 'jceb/vim-orgmode'
+
     Plug 'svermeulen/vim-yoink'
 
     Plug 'prurigro/vim-polyglot-darkcloud'
@@ -271,7 +273,7 @@ com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
 
 let g:lightline = {
-    \   'colorscheme': 'falcon',
+    \   'colorscheme': 'gruvbox',
     \   'active': {
     \     'left': [ [ 'mode',      'paste', 'gitbranch', 'blame'],
     \               [ 'cocstatus', 'readonly', 'modified', 'filename' ] ],
@@ -285,21 +287,6 @@ let g:lightline = {
     \   },
     \ }
 
-" let g:lightline = {
-"   \ 'active': {
-"   \   'left': [
-"   \     [ 'mode', 'paste' ],
-"   \     [ 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
-"   \   ],
-"   \   'right':[
-"   \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
-"   \     [ 'blame' ]
-"   \   ],
-"   \ },
-"   \ 'component_function': {
-"   \   'blame': 'LightlineGitBlame',
-"   \ }
-" \ }
 
 function! LightlineGitBlame() abort
   let blame = get(b:, 'coc_git_blame', '')
@@ -310,11 +297,10 @@ endfunction
 let g:tmuxline_powerline_separators=0
 
 let g:tmuxline_preset = {
-    \   'a'    : ['#S', '#(git rev-parse --abbrev-ref HEAD | cut -d  - -f1,2)'],
-    \   'win'  : ['#I', '#W'],
-    \   'cwin' : ['#I', '#W'],
-    \   'y'    : ['%R', '%a', '%Y'],
-    \   'z'    : '#h'}
+    \   'a'    : ['#(git rev-parse --abbrev-ref HEAD | cut -d  - -f1,2)'],
+    \   'win'  : ['#I',                   '#W'],
+    \   'cwin' : ['#I',                   '#W'],
+    \   'x'    : ['#(tmux-spotify-info)', '#S']}
 " }}}
 
 " NnnPicker{{{
@@ -382,7 +368,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
-  au VimLeave,VimSuspend * set guicursor=a:hor20
+  au VimLeave,VimSuspend * set guicursor=a:ver10
   au VimEnter,VimResume * set guicursor=a:block
   " se guicursor=n-v-c:hor50,i:ver50,r:block
 
@@ -417,5 +403,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " }}}
 
-colo falcon
+colo gruvbox
 nnoremap ff :Format<CR>
+
+autocmd FileType yaml setl foldmethod=indent

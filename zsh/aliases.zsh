@@ -30,9 +30,10 @@
   alias watchstatus='while true; do clear; git status -s -b; sleep 5; done'
   alias za='nvim ~/.config/zsh/aliases.zsh'
   alias ze='nvim ~/.config/zsh/config.zsh'
-  alias zreload='source ~/.config/zsh/*.zsh'
+  alias zreload='source ~/.config/zsh/config.zsh; source ~/.config/zsh/aliases.zsh'
   alias zt='zshz -l | fzf-tmux'
   alias pd='pushd; z '
+  alias sd2='sls --aws-profile bssdev2 --stage dev2'
 
   alias ..='cd ..'
   alias ...='cd ..;cd ..'

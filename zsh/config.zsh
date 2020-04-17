@@ -4,6 +4,9 @@ zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light tj/git-extras
+zinit light urbainvaes/fzf-marks
+
+zinit load urbainvaes/fzf-marks
 
 zinit load agkozak/zsh-z
 zinit load andrewferrier/fzf-z
@@ -20,6 +23,8 @@ GEOMETRY_PROMPT=(geometry_status geometry_path geometry_echo geometry_jobs )
 
 # Setup {{{
 setopt appendhistory
+# https://stackoverflow.com/a/19819036/824944
+setopt aliases
 
 bindkey -v
 bindkey '' history-incremental-search-backward
@@ -37,6 +42,7 @@ compinit
 
 # without this, commands starting with `man` are slow
 unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'
+
 # }}}
 
 # Variables {{{

@@ -24,3 +24,8 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 
 bind-key v split-window -h -c "#{pane_current_path}"
 bind-key s split-window -v -c "#{pane_current_path}"
+
+bind-key h resize-pane -L 10
+bind-key j resize-pane -D 10
+bind-key k resize-pane -U 10
+bind-key l resize-pane -R 10

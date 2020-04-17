@@ -97,7 +97,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Hasklig
+    family: Ligconsolata
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -108,7 +108,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    # family: Hasklig
+    # family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
     #style: Bold
@@ -119,7 +119,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    # family: Hasklig
+    # family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
     #style: Italic
@@ -142,14 +142,14 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
    x: 0
-   y: 2
+   y: 7
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
   glyph_offset:
    x: 0
-   y: 2
+   y: 5
 
   # Thin stroke font rendering (macOS only)
   #
@@ -572,29 +572,29 @@ key_bindings:
 custom_cursor_colors:
   true
 
-# colors:
-#   primary:
-#     background: "#020221"
-#     foreground: "#b4b4b9"
-#   cursor:
-#     text:       "#020221"
-#     cursor:     "#ffe8c0"
-#   normal:
-#     black:      "#000004"
-#     red:        "#ff3600"
-#     green:      "#718e3f"
-#     yellow:     "#ffc552"
-#     blue:       "#399ee6"
-#     magenta:    "#ff761a"
-#     cyan:       "#34bfa4"
-#     white:      "#b4b4b9"
-#   bright:
-#     black:      "#020221"
-#     red:        "#ff8e78"
-#     green:      "#b1bf75"
-#     yellow:     "#ffd392"
-#     blue:       "#99a4bc"
-#     magenta:    "#ffb07b"
-#     cyan:       "#8bccbf"
-#     white:      "#f8f8ff"
-#
+# falcon 
+colors:
+  primary:
+    background: '0x020221'
+    foreground: '0xb4b4b9'
+  cursor:
+    text: '0x020221'
+    cursor: '0xffe8c0'
+  normal:
+    black:   '0x000004'
+    red:     '0xff3600'
+    green:   '0x718e3f'
+    yellow:  '0xffc552'
+    blue:    '0x635196'
+    magenta: '0xff761a'
+    cyan:    '0x34bfa4'
+    white:   '0xb4b4b9'
+  bright:
+    black:   '0x020221'
+    red:     '0xff8e78'
+    green:   '0xb1bf75'
+    yellow:  '0xffd392'
+    blue:    '0x99a4bc'
+    magenta: '0xffb07b'
+    cyan:    '0x8bccbf'
+    white:   '0xf8f8ff'

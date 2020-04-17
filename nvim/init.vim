@@ -1,5 +1,7 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
+    Plug 'tpope/vim-fugitive'
+
     " Colorschemes 
     Plug 'ap/vim-css-color'
     Plug 'ayu-theme/ayu-vim'
@@ -23,7 +25,6 @@
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'rhysd/git-messenger.vim'
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
-    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
 
@@ -37,6 +38,8 @@
     Plug 'honza/vim-snippets'
 
     Plug 'alampros/vim-styled-jsx'
+
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   call plug#end()
 " }}}
 
@@ -52,7 +55,7 @@
   let g:python3_host_prog='/usr/local/bin/python3'
   hi SpellBad gui=undercurl guisp=red term=undercurl cterm=undercurl
 
-  set shellcmdflag=-ic                              " make Vim’s :! shell behave like your command prompt.
+  " set shellcmdflag=-ic                              " make Vim’s :! shell behave like your command prompt.
                                                     " https://stackoverflow.com/a/4642855/10926788
   set autoread                                      " if file changes outside of vim, redraw buffer
   set splitright
@@ -140,7 +143,7 @@
   nnoremap <leader>y "+y
   nnoremap <leader>p "+p
 
-  nnoremap <leader>gs :Gstatus<CR>
+  " nnoremap <leader>gs :Gstatus<CR>
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
   vmap <CR> <Plug>(LiveEasyAlign)
@@ -148,6 +151,7 @@
   " list matches
   " can be achieved with [I /]I
   nnoremap <leader>lm :vim // %<CR>:copen<CR>
+  nnoremap ff :Format<CR>
 " }}}
 
 " FZF {{{
@@ -190,6 +194,10 @@
 " Linters + Formatters {{{
   " primitive html auto-format
   vnoremap <leader>x JV:s/>\s*</>\r</<CR>
+
+
+  autocmd FileType yaml setl foldmethod=indent
+  autocmd FileType conf setl foldmethod=marker
 " }}}
 
 " CoC {{{
@@ -207,16 +215,17 @@
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
   " Remap keys for gotos
-  nmap <silent> en <Plug>(coc-diagnostic-next)
-  nmap <silent> ep <Plug>(coc-diagnostic-prev)
-  nmap <silent> <leader>di <Plug>(coc-diagnostic-info)
-  nmap <silent> <leader>ca <Plug>(coc-codeaction)
+  nnoremap <silent> en <Plug>(coc-diagnostic-next)
+  nnoremap <silent> ep <Plug>(coc-diagnostic-prev)
+  nnoremap <silent> <leader>di <Plug>(coc-diagnostic-info)
+  nnoremap <silent> <leader>ca <Plug>(coc-codeaction)
+  nnoremap <silent> gd <Plug>(coc-definition)
+  nnoremap <silent> gi <Plug>(coc-implementation)
+  nnoremap <silent> gr <Plug>(coc-references)
+  nnoremap <silent> gy <Plug>(coc-type-definition)
+  nnoremap <silent> rn <Plug>(coc-rename)
+  nnoremap <silent> <leader>gs :<C-u>CocList --normal gstatus<CR>
   xmap <silent> la <Plug>(coc-codeaction-selected)
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> rn <Plug>(coc-rename)
 
   " Use K for show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -273,12 +282,12 @@ com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
 
 let g:lightline = {
-    \   'colorscheme': 'gruvbox',
+    \   'colorscheme': 'falcon',
     \   'active': {
-    \     'left': [ [ 'mode',      'paste', 'gitbranch', 'blame'],
-    \               [ 'cocstatus', 'readonly', 'modified', 'filename' ] ],
-    \   'right':  [ [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
-    \               [ 'blame' ]],
+    \     'left': [ [ 'mode',      'paste',        'gitbranch', 'blame'    ],
+    \               [ 'cocstatus', 'readonly',     'modified',  'filename' ] ],
+    \     'right':  [ ['filetype',  'fileencoding', 'lineinfo',  'percent'  ],
+    \                 [ 'blame' ]],
     \   },
     \   'component_function': {
     \     'cocstatus': 'coc#status',
@@ -380,10 +389,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
         \   exe "normal g`\"" |
         \ endif
 
-  map <up>     :resize          -5<cr>
-  map <down>   :resize          +5<cr>
-  map <left>   :vertical resize -5<cr>
-  map <right>  :vertical resize +5<cr>
+  " map <up>     :resize          -5<cr>
+  " map <down>   :resize          +5<cr>
+  " map <left>   :vertical resize -5<cr>
+  " map <right>  :vertical resize +5<cr>
 
   " Show tabs and trailing whitespace
   set list listchars=tab:>>,trail:~
@@ -403,7 +412,5 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " }}}
 
+nnoremap <leader>hs :CocCommand git.chunkStage<cr>
 colo gruvbox
-nnoremap ff :Format<CR>
-
-autocmd FileType yaml setl foldmethod=indent

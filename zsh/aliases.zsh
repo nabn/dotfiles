@@ -11,6 +11,7 @@
   alias du=ncdu
   alias f=fzf
   alias ft=fzf-tmux
+  alias fb="buku -p -f 5 | column -ts$'\t' | fzf --multi"
   alias ivi='nvim' # common misspelling
   alias j=jobs
   alias light='base16_gruvbox-light-medium'
@@ -51,6 +52,16 @@
 
     echo $Matches | head -1 | xargs git checkout
   }
+
+  function fbr() {
+    local branches branch
+    branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+    branch=$(echo "$branches" |
+             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  }
+
+
   watchstatus='while true; do clear; git status -s -b; sleep 5; done'
 
   function take {

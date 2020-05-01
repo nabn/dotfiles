@@ -36,8 +36,12 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/Users/nabeen.khadka/.zshrc'
-autoload -Uz compinit
-compinit
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 # End of lines added by compinstall
 
 # without this, commands starting with `man` are slow
@@ -83,6 +87,7 @@ export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
 # }}}
 
 # Paths {{{
+export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
@@ -104,3 +109,5 @@ export PATH="$HOME/.local/bin:$PATH"
 #   /usr/local/opt/python/libexec/bin
 # }}}
 
+# fnm
+eval "$(fnm env --multi)"

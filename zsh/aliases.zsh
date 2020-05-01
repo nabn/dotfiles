@@ -24,7 +24,6 @@
   # alias serve='python3 -m http.server 8080 --bind 0.0.0.0'
   alias sonar-console='/opt/sonarqube/bin/macosx-universal-64/sonar.sh console'
   alias tmux='tmux -2'
-  alias tree=gtree
   alias v='nvim `fzf-tmux`'
   alias vi='nvim'
   alias view='nvim -u NORC -R'
@@ -35,6 +34,7 @@
   alias zt='zshz -l | fzf-tmux'
   alias pd='pushd; z '
   alias sd2='sls --aws-profile bssdev2 --stage dev2'
+  alias hosts='sudo nvim /etc/hosts'
 
   alias ..='cd ..'
   alias ...='cd ..;cd ..'

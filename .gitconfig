@@ -11,6 +11,9 @@
   # pager = diff-so-fancy | less --tabs=2 -RFX
   pager = delta --dark --plus-color="#012800" --minus-color="#340001"
 
+[interactive]
+  diffFilter = delta --color-only
+
 [format]
   pretty = format:%C(blue)%h %<(20,trunc)%C(green)%aN %>(15,trunc)%C(blue)%ar %C(green)%s
 
@@ -50,3 +53,5 @@
   email = nabn@protonmail.com
 [includeIf "gitdir:~/Arria/"]
   path = ~/Arria/.gitconfig
+[fetch]
+	prune = true

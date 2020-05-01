@@ -8,6 +8,9 @@
     Plug 'endel/vim-github-colorscheme'
     Plug 'morhetz/gruvbox'
     Plug 'fenetikm/falcon'
+    Plug 'rakr/vim-one'
+    Plug 'cocopon/iceberg.vim/'
+    Plug 'acarapetis/vim-colors-github'
     "-----
 
     Plug '/usr/local/bin/fzf'
@@ -27,19 +30,17 @@
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
-
-    Plug 'jceb/vim-orgmode'
-
     Plug 'svermeulen/vim-yoink'
-
-    Plug 'prurigro/vim-polyglot-darkcloud'
-    Plug 'MaxMEllon/vim-jsx-pretty'
-
     Plug 'honza/vim-snippets'
+    Plug 'vifm/vifm.vim'
 
+    " Language
+    Plug 'sheerun/vim-polyglot'
+    Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'alampros/vim-styled-jsx'
+    " --------
 
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
   call plug#end()
 " }}}
 
@@ -200,69 +201,6 @@
   autocmd FileType conf setl foldmethod=marker
 " }}}
 
-" CoC {{{
-  inoremap <silent><expr> <c-space> coc#refresh()
-  set updatetime=300
-  " set shortmess+=c
-
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  verbose inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  " Remap keys for gotos
-  nnoremap <silent> en <Plug>(coc-diagnostic-next)
-  nnoremap <silent> ep <Plug>(coc-diagnostic-prev)
-  nnoremap <silent> <leader>di <Plug>(coc-diagnostic-info)
-  nnoremap <silent> <leader>ca <Plug>(coc-codeaction)
-  nnoremap <silent> gd <Plug>(coc-definition)
-  nnoremap <silent> gi <Plug>(coc-implementation)
-  nnoremap <silent> gr <Plug>(coc-references)
-  nnoremap <silent> gy <Plug>(coc-type-definition)
-  nnoremap <silent> rn <Plug>(coc-rename)
-  nnoremap <silent> <leader>gs :<C-u>CocList --normal gstatus<CR>
-  xmap <silent> la <Plug>(coc-codeaction-selected)
-
-  " Use K for show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if &filetype == 'vim'
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-
-  augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json,javascript,javascriptreact setl formatexpr=CocAction('formatSelected')
-  augroup end
-
-  command! -nargs=0 Format :call CocAction('format')
-  command! -nargs=0 AutoFix :CocCommand tsserver.executeAutofix
-  command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-  " map ff ::AutoFix<CR>:OrganiseImports<CR>:Format<CR>
-
-  " navigate chunks of current buffer
-  nmap [c <Plug>(coc-git-prevchunk)
-  nmap ]c <Plug>(coc-git-nextchunk)
-  " show chunk diff at current position
-  nmap gs <Plug>(coc-git-chunkinfo)
-  " show commit contains current position
-  nmap gc <Plug>(coc-git-commit)
-  " create text object for git chunks
-  omap ig <Plug>(coc-git-chunk-inner)
-  xmap ig <Plug>(coc-git-chunk-inner)
-  omap ag <Plug>(coc-git-chunk-outer)
-  xmap ag <Plug>(coc-git-chunk-outer)
-"}}}
-
 " LightLine + Tmuxline {{{
 function! s:setLightlineColorscheme(name)
   let g:lightline.colorscheme = a:name
@@ -282,7 +220,7 @@ com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
 
 let g:lightline = {
-    \   'colorscheme': 'falcon',
+    \   'colorscheme': 'gruvbox',
     \   'active': {
     \     'left': [ [ 'mode',      'paste',        'gitbranch', 'blame'    ],
     \               [ 'cocstatus', 'readonly',     'modified',  'filename' ] ],
@@ -337,6 +275,14 @@ let g:tmuxline_preset = {
   nnoremap <leader><cr> :NnnPicker '%:p:h'<CR>
 " }}}
 
+" tmux navigation compatibility {{{
+  " Intelligently navigate tmux panes and Vim splits using the same keys.
+  " See https://sunaku.github.io/tmux-select-pane.html for documentation.
+  let progname = substitute($VIM, '.*[/\\]', '', '')
+  set title titlestring=%{progname}\ %f\ +%l\ #%{tabpagenr()}.%{winnr()}
+  if &term =~ '^screen' && !has('nvim') | exe "set t_ts=\e]2; t_fs=\7" | endif
+" }}}
+
 " Goyo & Limelight {{{
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
@@ -366,6 +312,8 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " }}}
 
+source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
+
 " Misc {{{
   let g:vim_json_syntax_conceal = 1
   let g:nv_use_short_pathnames=1
@@ -377,9 +325,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
-  au VimLeave,VimSuspend * set guicursor=a:ver10
-  au VimEnter,VimResume * set guicursor=a:block
-  " se guicursor=n-v-c:hor50,i:ver50,r:block
 
   " From garyBernhardt's vimrc
   " Jump to the last cursor position unless it is
@@ -410,7 +355,14 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
   nnoremap <leader>s viB:sort<cr>
   vnoremap <leader>s :sort<cr>
 
+  nnoremap <leader>cs :CocCommand git.chunkStage<cr>
+  nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
+  nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
+
+  set showtabline=2
+  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+      \,a:blinkwait700-blinkoff400-blinkon250-Cursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
 " }}}
 
-nnoremap <leader>hs :CocCommand git.chunkStage<cr>
-colo gruvbox
+command! Scratch lua require'tools'.makeScratch()

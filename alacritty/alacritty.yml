@@ -142,14 +142,14 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
    x: 0
-   y: 7
+   y: 5
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
   glyph_offset:
    x: 0
-   y: 5
+   y: 4
 
   # Thin stroke font rendering (macOS only)
   #
@@ -570,31 +570,57 @@ key_bindings:
 # Use custom cursor colors. If true, display the cursor in the cursor.foreground
 # and cursor.background colors, otherwise invert the colors of the cursor.
 custom_cursor_colors:
-  true
+  false
 
 # falcon 
+# colors:
+#   primary:
+#     background: '#020221'
+#     foreground: '#b4b4b9'
+#   normal:
+#     black:   '#000004'
+#     red:     '#ff3600'
+#     green:   '#718e3f'
+#     yellow:  '#ffc552'
+#     blue:    '#aeaeff'
+#     magenta: '#ff761a'
+#     cyan:    '#34bfa4'
+#     white:   '#b4b4b9'
+#   bright:
+#     black:   '#020221'
+#     red:     '#ff8e78'
+#     green:   '#b1bf75'
+#     yellow:  '#ffd392'
+#     blue:    '#99a4bc'
+#     magenta: '#ffb07b'
+#     cyan:    '#8bccbf'
+#     white:   '#f8f8ff'
+
 colors:
   primary:
-    background: '0x020221'
-    foreground: '0xb4b4b9'
-  cursor:
-    text: '0x020221'
-    cursor: '0xffe8c0'
+    # hard contrast: background = '#f9f5d7'
+    background: '#fbf1c7'
+    # soft contrast: background = '#f2e5bc'
+    foreground: '#3c3836'
+
+  # Normal colors
   normal:
-    black:   '0x000004'
-    red:     '0xff3600'
-    green:   '0x718e3f'
-    yellow:  '0xffc552'
-    blue:    '0x635196'
-    magenta: '0xff761a'
-    cyan:    '0x34bfa4'
-    white:   '0xb4b4b9'
+    black:   '#fbf1c7'
+    red:     '#cc241d'
+    green:   '#98971a'
+    yellow:  '#d79921'
+    blue:    '#458588'
+    magenta: '#b16286'
+    cyan:    '#689d6a'
+    white:   '#7c6f64'
+
+  # Bright colors
   bright:
-    black:   '0x020221'
-    red:     '0xff8e78'
-    green:   '0xb1bf75'
-    yellow:  '0xffd392'
-    blue:    '0x99a4bc'
-    magenta: '0xffb07b'
-    cyan:    '0x8bccbf'
-    white:   '0xf8f8ff'
+    black:   '#928374'
+    red:     '#9d0006'
+    green:   '#79740e'
+    yellow:  '#b57614'
+    blue:    '#076678'
+    magenta: '#8f3f71'
+    cyan:    '#427b58'
+    white:   '#3c3836'

@@ -10,7 +10,7 @@ endfunction
 
 set updatetime=300
 set shortmess+=c
-set signcolumn=yes
+set signcolumn=no
 
 verbose inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -24,7 +24,8 @@ xmap <silent> la <Plug>(coc-codeaction-selected)
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call     CocAction('fold', <f-args>)
+command! -nargs=0 Format :call     CocAction('format')
 
 nmap <silent> ep <Plug>(coc-diagnostic-prev)
 nmap <silent> en <Plug>(coc-diagnostic-next)
@@ -43,7 +44,7 @@ xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 
-nnoremap <leader>gs :<C-u>CocList --normal gstatus<CR>
-nnoremap <leader>ci <Plug>(coc-git-chunkinfo)
-nnoremap <leader>cs <Plug>(coc-git-chunkstage)
-nnoremap <leader>cu <Plug>(coc-git-chunkundo)
+" nnoremap <leader>gs :<C-u>CocList --normal gstatus<CR>
+nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
+nnoremap <leader>cs :CocCommand git.chunkStage<cr>
+nnoremap <leader>cu :CocCommand git.chunkUndo<cr>

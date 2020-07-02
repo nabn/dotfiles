@@ -24,7 +24,8 @@ function M.blameVirtText()
       text = 'Not Committed Yet'
     end
   end
-  api.nvim_buf_set_virtual_text(0, 2, line[1] - 1, {{ text,'GitLens' }}, {}) -- set virtual text for namespace 2 with the content from git and assign it to the higlight group 'GitLens'
+  -- set virtual text for namespace 2 with the content from git and assign it to the higlight group 'GitLens'
+  api.nvim_buf_set_virtual_text(0, 2, line[1] - 1, {{ text,'GitLens' }}, {})
 end
 function M.clearBlameVirtText() -- important for clearing out the text when our cursor moves
   api.nvim_buf_clear_namespace(0, 2, 0, -1)

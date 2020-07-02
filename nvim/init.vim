@@ -1,22 +1,25 @@
 " Plugins {{{
   call plug#begin('~/.config/nvim/plugged')
-    Plug 'tpope/vim-fugitive'
 
-    " Colorschemes 
+    " Colorschemes
     Plug 'ap/vim-css-color'
     Plug 'ayu-theme/ayu-vim'
-    Plug 'endel/vim-github-colorscheme'
     Plug 'morhetz/gruvbox'
     Plug 'fenetikm/falcon'
     Plug 'rakr/vim-one'
     Plug 'cocopon/iceberg.vim/'
-    Plug 'acarapetis/vim-colors-github'
+    Plug 'pgdouyon/vim-yin-yang'
+    Plug 'cideM/yui'
+    Plug 'ajmwagar/vim-deus'
+    Plug 'srcery-colors/srcery-vim'
+    Plug 'AlessandroYorba/Alduin'
     "-----
 
     Plug '/usr/local/bin/fzf'
     Plug 'alok/notational-fzf-vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'edkolev/tmuxline.vim'
+    Plug 'honza/vim-snippets'
     Plug 'itchyny/lightline.vim'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
@@ -27,19 +30,23 @@
     Plug 'metakirby5/codi.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'rhysd/git-messenger.vim'
+    Plug 'svermeulen/vim-yoink'
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
+    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
-    Plug 'svermeulen/vim-yoink'
-    Plug 'honza/vim-snippets'
-    Plug 'vifm/vifm.vim'
+    Plug 'vimwiki/vimwiki'
 
     " Language
     Plug 'sheerun/vim-polyglot'
     Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'alampros/vim-styled-jsx'
+    Plug 'vim-pandoc/vim-pandoc'
+    Plug 'vim-pandoc/vim-pandoc-syntax' 
+    Plug 'rafcamlet/nvim-luapad'
     " --------
-
+    Plug 'justinmk/vim-dirvish'
+    Plug 'tpope/vim-eunuch'
 
   call plug#end()
 " }}}
@@ -79,7 +86,7 @@
   set nomodeline
   set noshowmode
   set noswapfile
-  set number
+  " set number  " -- the line number is in the bottom right
   set relativenumber
   set rtp+=/usr/local/opt/fzf
   set ruler
@@ -87,14 +94,14 @@
   set showcmd
   set smartcase
   set smartindent
-  set softtabstop=4
-  set tabstop=4
+  set softtabstop=2
+  set tabstop=2
   set termguicolors
   set timeoutlen=300
   set undofile
   set wildignorecase                                " case insensitive filename completion
   set visualbell
-  set wrap
+  set nowrap
   syntax enable
 
   " Misspellings
@@ -126,6 +133,8 @@
   nnoremap k gk
   nnoremap z<space> zO                " open all folds under cursor
 
+  tnoremap <Esc> <C-\><C-n>
+
   " default to verymagic modes (don't have to escape "{" in :s/\s{2,})
   nnoremap / /\v
   vnoremap / /\v
@@ -144,7 +153,7 @@
   nnoremap <leader>y "+y
   nnoremap <leader>p "+p
 
-  " nnoremap <leader>gs :Gstatus<CR>
+  nnoremap <leader>gs :Gstatus<CR>
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
   vmap <CR> <Plug>(LiveEasyAlign)
@@ -155,43 +164,6 @@
   nnoremap ff :Format<CR>
 " }}}
 
-" FZF {{{
-  nnoremap <c-b> :Buffers<CR>
-  nnoremap <c-f> :Files<CR>
-
-  let $FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git --type f'
-  let $FZF_DEFAULT_OPTS = ''
-  let g:fzf_buffers_jump = 1
-  inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-
-  command! -bang -nargs=* RgFzf
-    \ call fzf#vim#grep(
-    \   'rg --column --hidden --line-number --no-heading --color=always --pretty --smart-case '
-    \ . <q-args>, 1,
-    \   <bang>0 ? fzf#vim#with_preview('up:60%')
-    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-    \   <bang>0)
-
-  let g:fzf_commits_log_options = '--format="%C(white)%h%>(15,trunc)%C(blue)%aN%>(15,trunc)%C(yellow)%ar %C(green)%s"'
-  let g:fzf_history_dir = '~/.local/share/fzf-history'
-  let g:fzf_colors = {
-        \ 'fg':      ['fg', 'Normal'],
-        \ 'bg':      ['bg', 'Keyword'],
-        \ 'hl':      ['fg', 'Comment'],
-        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-        \ 'hl+':     ['fg', 'Statement'],
-        \ 'info':    ['fg', 'PreProc'],
-        \ 'border':  ['fg', 'Ignore'],
-        \ 'prompt':  ['fg', 'Conditional'],
-        \ 'pointer': ['fg', 'Exception'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
-  " }}}
-
 " Linters + Formatters {{{
   " primitive html auto-format
   vnoremap <leader>x JV:s/>\s*</>\r</<CR>
@@ -199,9 +171,18 @@
 
   autocmd FileType yaml setl foldmethod=indent
   autocmd FileType conf setl foldmethod=marker
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
 " }}}
 
-" LightLine + Tmuxline {{{
+" Colors {{{
+
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+colorscheme deus
+" let g:deus_termcolors=256
+
 function! s:setLightlineColorscheme(name)
   let g:lightline.colorscheme = a:name
   call lightline#init()
@@ -216,60 +197,80 @@ function! s:lightlineColorschemes(...)
         \ "\n")
 endfun
 
+" augroup tmuxline
+"   autocmd!
+"   autocmd VimEnter,ColorScheme * silent! Tmuxline vim_statusline_1
+"   " autocmd VimLeave * !tmux source-file ~/.tmux.conf
+" augroup END
+
 com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
       \ call s:setLightlineColorscheme(<q-args>)
 
 let g:lightline = {
-    \   'colorscheme': 'gruvbox',
+    \   'colorscheme': 'ayu',
     \   'active': {
-    \     'left': [ [ 'mode',      'paste',        'gitbranch', 'blame'    ],
-    \               [ 'cocstatus', 'readonly',     'modified',  'filename' ] ],
-    \     'right':  [ ['filetype',  'fileencoding', 'lineinfo',  'percent'  ],
+    \     'left': [ [ 'mode',      'paste',        'blame'    ],
+    \               [ 'cocstatus', 'readonly',     'modified',   'filename' ] ],
+    \     'right':  [ ['filetype', 'fileencoding', 'lineinfo',   'percent'  ],
     \                 [ 'blame' ]],
     \   },
     \   'component_function': {
     \     'cocstatus': 'coc#status',
     \     'gitbranch': 'helpers#GetTicketNumber',
-    \     'blame': 'LightlineGitBlame'
     \   },
     \ }
 
-
-function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
+let g:lightline.tabline = { 'component_function': { 'filename': 'LightlineFilename' } }
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
 endfunction
 
 let g:tmuxline_powerline_separators=0
 
 let g:tmuxline_preset = {
-    \   'a'    : ['#(git rev-parse --abbrev-ref HEAD | cut -d  - -f1,2)'],
-    \   'win'  : ['#I',                   '#W'],
-    \   'cwin' : ['#I',                   '#W'],
-    \   'x'    : ['#(tmux-spotify-info)', '#S']}
+      \ 'a':    [ 'CSP'                        ] ,
+      \ 'win':  [ '#I',                   '#W' ] ,
+      \ 'cwin': [ '#I',                   '#W' ] ,
+      \ 'x':    [ '#(tmux-spotify-info)', '#S' ] }
+
+  " Goyo & Limelight {{{
+  function! s:goyo_enter()
+    if executable('tmux') && strlen($TMUX)
+      silent !tmux set status off
+      silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    endif
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+    set statusline="Goyo Mode"
+    " set rnu
+    Limelight
+  endfunction
+
+  function! s:goyo_leave()
+    if executable('tmux') && strlen($TMUX)
+      silent !tmux set status on
+      silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    endif
+    set showmode
+    set showcmd
+    set scrolloff=5
+    Limelight!
+  endfunction
+
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+  " }}}
+
 " }}}
 
 " NnnPicker{{{
-  " Floating window (neovim)
-  function! s:layout()
-    let buf = nvim_create_buf(v:false, v:true)
-
-    let height = &lines - (float2nr(&lines / 3))
-    let width = float2nr(&columns - (&columns * 2 / 3))
-
-    let opts = {
-          \ 'relative': 'editor',
-          \ 'row': 2,
-          \ 'col': 8,
-          \ 'width': width,
-          \ 'height': height
-          \ }
-
-    call nvim_open_win(buf, v:true, opts)
-  endfunction
-
-  let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
+  let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
   let g:nnn#set_default_mappings = 0
   let g:nnn#command = 'nnn -H'
   nnoremap <leader><cr> :NnnPicker '%:p:h'<CR>
@@ -283,45 +284,10 @@ let g:tmuxline_preset = {
   if &term =~ '^screen' && !has('nvim') | exe "set t_ts=\e]2; t_fs=\7" | endif
 " }}}
 
-" Goyo & Limelight {{{
-function! s:goyo_enter()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  set statusline="Goyo Mode"
-  set rnu
-  Limelight
-endfunction
-
-function! s:goyo_leave()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  set showmode
-  set showcmd
-  set scrolloff=5
-  Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" }}}
-
-source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
-
 " Misc {{{
   let g:vim_json_syntax_conceal = 1
   let g:nv_use_short_pathnames=1
-  let ayucolor='mirage' " mirage | light | dark
 
-  let g:gruvbox_contrast_dark='hard'
-  " let g:gruvbox_italic=1
-  colorscheme gruvbox
 
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
@@ -359,10 +325,22 @@ source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
   nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
   nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
 
-  set showtabline=2
-  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-      \,a:blinkwait700-blinkoff400-blinkon250-Cursor
-      \,sm:block-blinkwait175-blinkoff150-blinkon175
+  au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+  au VimLeave,VimSuspend * set guicursor=a:ver10
 " }}}
 
-command! Scratch lua require'tools'.makeScratch()
+source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
+source ~/.local/dotfiles/nabn/nvim/fzf.vim
+
+set previewheight=8
+
+let g:vimwiki_list = [{
+    \ 'path': '~/Google Drive/Notes/',
+    \ 'path_html': '~/Google Drive/Notes/vim-wiki-html/',
+    \ 'syntax': 'markdown', 'ext' : '.md'}]
+
+au FileType vimwiki se nowrap
+
+if has('gui_vimr')
+  silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
+endif

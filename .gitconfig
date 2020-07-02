@@ -8,8 +8,8 @@
 
 [core]
   excludesfile = /Users/nabeen.khadka/.gitignore_global
-  # pager = diff-so-fancy | less --tabs=2 -RFX
-  pager = delta --dark --plus-color="#012800" --minus-color="#340001"
+  pager = delta --theme='Dracula'
+
 
 [interactive]
   diffFilter = delta --color-only

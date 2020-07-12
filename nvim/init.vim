@@ -2,7 +2,6 @@
   call plug#begin('~/.config/nvim/plugged')
 
     " Colorschemes
-    Plug 'ap/vim-css-color'
     Plug 'ayu-theme/ayu-vim'
     Plug 'morhetz/gruvbox'
     Plug 'fenetikm/falcon'
@@ -13,6 +12,8 @@
     Plug 'ajmwagar/vim-deus'
     Plug 'srcery-colors/srcery-vim'
     Plug 'AlessandroYorba/Alduin'
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'luochen1990/rainbow'
     "-----
 
     Plug '/usr/local/bin/fzf'
@@ -45,7 +46,6 @@
     Plug 'vim-pandoc/vim-pandoc-syntax' 
     Plug 'rafcamlet/nvim-luapad'
     " --------
-    Plug 'justinmk/vim-dirvish'
     Plug 'tpope/vim-eunuch'
 
   call plug#end()
@@ -59,7 +59,6 @@
 
   let g:nv_search_paths =['~/Google Drive/Notes']
   let g:nv_create_note_key = 'ctrl-x'
-  " let g:python_host_prog='/usr/bin/python'
   let g:python3_host_prog='/usr/local/bin/python3'
   hi SpellBad gui=undercurl guisp=red term=undercurl cterm=undercurl
 
@@ -67,6 +66,7 @@
                                                     " https://stackoverflow.com/a/4642855/10926788
   set autoread                                      " if file changes outside of vim, redraw buffer
   set splitright
+  set previewheight=8
   set diffopt+=vertical
   set encoding=utf8
   set expandtab
@@ -83,7 +83,7 @@
   set listchars=tab:>-,trail:~,extends:>,precedes:<,eol:↩
   set mouse=a
   set nofoldenable
-  set nomodeline
+  " set nomodeline
   set noshowmode
   set noswapfile
   " set number  " -- the line number is in the bottom right
@@ -164,24 +164,45 @@
   nnoremap ff :Format<CR>
 " }}}
 
-" Linters + Formatters {{{
-  " primitive html auto-format
-  vnoremap <leader>x JV:s/>\s*</>\r</<CR>
+" Linters + Formatters + Colors {{{
+" primitive html auto-format
+vnoremap <leader>x JV:s/>\s*</>\r</<CR>
+
+if has('multi_byte')
+    set listchars=tab:»»,trail:•
+    set fillchars=vert:┃ showbreak=↪
+endif
+
+autocmd FileType yaml setl foldmethod=indent
+autocmd FileType vim,conf setl foldmethod=marker
+autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
+autocmd BufNewFile,BufRead *.jsx set ft=javascript.jsx
+autocmd VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+autocmd VimLeave,VimSuspend * set guicursor=a:ver10
+autocmd FileType vimwiki se nowrap
 
 
-  autocmd FileType yaml setl foldmethod=indent
-  autocmd FileType conf setl foldmethod=marker
-  autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
-" }}}
+" sort imports
+nnoremap <leader>s viB:sort<cr>
+vnoremap <leader>s :sort<cr>
 
-" Colors {{{
+set fillchars+=vert:│
+" Show tabs and trailing whitespace
+set list listchars=tab:>>,trail:~
+
+let g:tmuxline_powerline_separators=0
+let g:vim_json_syntax_conceal = 1
+let g:nv_use_short_pathnames=1
+
+lua require'colorizer'.setup()
+
 
 " let g:gruvbox_italic=1
-" colorscheme gruvbox
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-colorscheme deus
 " let g:deus_termcolors=256
+" colorscheme gruvbox
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+colorscheme srcery
 
 function! s:setLightlineColorscheme(name)
   let g:lightline.colorscheme = a:name
@@ -230,8 +251,6 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
-let g:tmuxline_powerline_separators=0
-
 let g:tmuxline_preset = {
       \ 'a':    [ 'CSP'                        ] ,
       \ 'win':  [ '#I',                   '#W' ] ,
@@ -269,14 +288,14 @@ let g:tmuxline_preset = {
 
 " }}}
 
-" NnnPicker{{{
+" NnnPicker {{{
   let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
   let g:nnn#set_default_mappings = 0
   let g:nnn#command = 'nnn -H'
   nnoremap <leader><cr> :NnnPicker '%:p:h'<CR>
 " }}}
 
-" tmux navigation compatibility {{{
+" Tmux navigation compatibility {{{
   " Intelligently navigate tmux panes and Vim splits using the same keys.
   " See https://sunaku.github.io/tmux-select-pane.html for documentation.
   let progname = substitute($VIM, '.*[/\\]', '', '')
@@ -285,10 +304,6 @@ let g:tmuxline_preset = {
 " }}}
 
 " Misc {{{
-  let g:vim_json_syntax_conceal = 1
-  let g:nv_use_short_pathnames=1
-
-
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
 
@@ -300,47 +315,25 @@ let g:tmuxline_preset = {
         \   exe "normal g`\"" |
         \ endif
 
-  " map <up>     :resize          -5<cr>
-  " map <down>   :resize          +5<cr>
-  " map <left>   :vertical resize -5<cr>
-  " map <right>  :vertical resize +5<cr>
-
-  " Show tabs and trailing whitespace
-  set list listchars=tab:>>,trail:~
-  if has('multi_byte')
-      set listchars=tab:»»,trail:•
-      set fillchars=vert:┃ showbreak=↪
-  endif
-
   nmap <c-n> <plug>(YoinkPostPasteSwapBack)
   nmap <c-p> <plug>(YoinkPostPasteSwapForward)
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
 
-  " sort imports
-  nnoremap <leader>s viB:sort<cr>
-  vnoremap <leader>s :sort<cr>
-
   nnoremap <leader>cs :CocCommand git.chunkStage<cr>
   nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
   nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
 
-  au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-  au VimLeave,VimSuspend * set guicursor=a:ver10
+  let g:vimwiki_list = [{
+      \ 'path': '~/Google Drive/Notes/',
+      \ 'path_html': '~/Google Drive/Notes/vim-wiki-html/',
+      \ 'syntax': 'markdown', 'ext' : '.md'}]
+
+  if has('gui_vimr')
+    silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
+  endif
+
+  source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
+  source ~/.local/dotfiles/nabn/nvim/fzf.vim
+
 " }}}
-
-source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
-source ~/.local/dotfiles/nabn/nvim/fzf.vim
-
-set previewheight=8
-
-let g:vimwiki_list = [{
-    \ 'path': '~/Google Drive/Notes/',
-    \ 'path_html': '~/Google Drive/Notes/vim-wiki-html/',
-    \ 'syntax': 'markdown', 'ext' : '.md'}]
-
-au FileType vimwiki se nowrap
-
-if has('gui_vimr')
-  silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
-endif

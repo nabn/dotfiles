@@ -29,7 +29,7 @@
   alias sonar-console='/opt/sonarqube/bin/macosx-universal-64/sonar.sh console'
   alias ssh='TERM=xterm-256color ssh'
   alias tmux='tmux -2'
-  alias v='nvim `fzf-tmux`'
+  alias v='nvim `fzf`'
   alias vi='nvim'
   alias view='nvim -u NORC -R'
   alias watchstatus='while true; do clear; git status -s -b; sleep 5; done'

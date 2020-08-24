@@ -7,7 +7,7 @@
   identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\""
 
 [core]
-  excludesfile = /Users/nabeen.khadka/.gitignore_global
+	excludesfile = /Users/nabn/.gitignore_global
   pager = delta --theme='Dracula'
 
 
@@ -34,12 +34,12 @@
   driver = npx npm-merge-driver merge %A %O %B %P
 
 [difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
 
 [mergetool "sourcetree"]
-  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 
 [user]
   useConfigOnly = true
@@ -55,3 +55,5 @@
   path = ~/Arria/.gitconfig
 [fetch]
 	prune = true
+[pull]
+	ff = only

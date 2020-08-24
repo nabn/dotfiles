@@ -2,26 +2,21 @@
   call plug#begin('~/.config/nvim/plugged')
 
     " Colorschemes
-    Plug 'ayu-theme/ayu-vim'
     Plug 'morhetz/gruvbox'
     Plug 'fenetikm/falcon'
-    Plug 'rakr/vim-one'
     Plug 'cocopon/iceberg.vim/'
-    Plug 'pgdouyon/vim-yin-yang'
-    Plug 'cideM/yui'
     Plug 'ajmwagar/vim-deus'
-    Plug 'srcery-colors/srcery-vim'
-    Plug 'AlessandroYorba/Alduin'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'luochen1990/rainbow'
+    Plug 'srcery-colors/srcery-vim'
+    Plug 'cideM/yui'
+    Plug 'pgdouyon/vim-yin-yang'
     "-----
 
     Plug '/usr/local/bin/fzf'
     Plug 'alok/notational-fzf-vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'edkolev/tmuxline.vim'
-    Plug 'honza/vim-snippets'
-    Plug 'itchyny/lightline.vim'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
@@ -38,15 +33,22 @@
     Plug 'tpope/vim-surround'
     Plug 'vimwiki/vimwiki'
 
+    Plug 'tpope/vim-eunuch'
+    Plug 'liuchengxu/eleline.vim'
+    Plug 'liuchengxu/vista.vim'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'mhinz/vim-startify'
+
     " Language
-    Plug 'sheerun/vim-polyglot'
     Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'alampros/vim-styled-jsx'
     Plug 'vim-pandoc/vim-pandoc'
     Plug 'vim-pandoc/vim-pandoc-syntax' 
     Plug 'rafcamlet/nvim-luapad'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'othree/javascript-libraries-syntax.vim'
+    Plug 'honza/vim-snippets'
     " --------
-    Plug 'tpope/vim-eunuch'
 
   call plug#end()
 " }}}
@@ -106,6 +108,7 @@
 
   " Misspellings
   iabbrev improt import
+  iabbrev lgo log
 " }}}
 
 " Mappings {{{
@@ -114,7 +117,9 @@
   let g:rg_highlight='true'
   let g:rg_derive_root='true'
 
-  nmap tt :call helpers#SwapTestFile()<CR>
+  " nmap tt :call helpers#SwapTestFile()<CR>
+  nnoremap tt :Tags<cr>
+  nnoremap bt :BTags<cr>
   nnoremap 0 ^
   nnoremap <leader><space> :b#<CR>    " switch to last buffer
   nnoremap <leader>N :NV<CR>
@@ -123,6 +128,7 @@
   nnoremap <leader>n :nohl<CR>
   nnoremap <leader>o :only<CR>
   nnoremap <leader>q :bd<CR>
+  nnoremap <leader>w :close<CR>
   nnoremap <leader>t<leader> :tabn<CR>
   nnoremap <leader>tn :tabnew<CR>
   nnoremap <leader>z :Goyo<CR>
@@ -173,14 +179,13 @@ if has('multi_byte')
     set fillchars=vert:┃ showbreak=↪
 endif
 
-autocmd FileType yaml setl foldmethod=indent
-autocmd FileType vim,conf setl foldmethod=marker
-autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
+autocmd FileType yaml setlocal foldmethod=indent
+autocmd FileType vim,conf setlocal foldmethod=marker
+autocmd FileType vimwiki se nowrap
+" autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
 autocmd BufNewFile,BufRead *.jsx set ft=javascript.jsx
 autocmd VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 autocmd VimLeave,VimSuspend * set guicursor=a:ver10
-autocmd FileType vimwiki se nowrap
-
 
 " sort imports
 nnoremap <leader>s viB:sort<cr>
@@ -197,59 +202,11 @@ let g:nv_use_short_pathnames=1
 lua require'colorizer'.setup()
 
 
-" let g:gruvbox_italic=1
-" let g:deus_termcolors=256
-" colorscheme gruvbox
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-colorscheme srcery
-
-function! s:setLightlineColorscheme(name)
-  let g:lightline.colorscheme = a:name
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfun
-
-function! s:lightlineColorschemes(...)
-  return join(map(
-        \ globpath(&rtp,"autoload/lightline/colorscheme/*.vim",1,1),
-        \ "fnamemodify(v:val,':t:r')"),
-        \ "\n")
-endfun
-
-" augroup tmuxline
-"   autocmd!
-"   autocmd VimEnter,ColorScheme * silent! Tmuxline vim_statusline_1
-"   " autocmd VimLeave * !tmux source-file ~/.tmux.conf
-" augroup END
-
-com! -nargs=1 -complete=custom,s:lightlineColorschemes LightlineColorscheme
-      \ call s:setLightlineColorscheme(<q-args>)
-
-let g:lightline = {
-    \   'colorscheme': 'ayu',
-    \   'active': {
-    \     'left': [ [ 'mode',      'paste',        'blame'    ],
-    \               [ 'cocstatus', 'readonly',     'modified',   'filename' ] ],
-    \     'right':  [ ['filetype', 'fileencoding', 'lineinfo',   'percent'  ],
-    \                 [ 'blame' ]],
-    \   },
-    \   'component_function': {
-    \     'cocstatus': 'coc#status',
-    \     'gitbranch': 'helpers#GetTicketNumber',
-    \   },
-    \ }
-
-let g:lightline.tabline = { 'component_function': { 'filename': 'LightlineFilename' } }
-function! LightlineFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
+let srcery_italic=1
+let g:gruvbox_italic=1
+let g:gruvbox_bold=0
+let g:deus_termcolors=256
+colorscheme yui
 
 let g:tmuxline_preset = {
       \ 'a':    [ 'CSP'                        ] ,
@@ -303,6 +260,69 @@ let g:tmuxline_preset = {
   if &term =~ '^screen' && !has('nvim') | exe "set t_ts=\e]2; t_fs=\7" | endif
 " }}}
 
+" GutenTags {{{
+  let g:gutentags_add_default_project_roots = 0
+  let g:gutentags_project_root = ['package.json', '.git']
+  let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+  let g:gutentags_generate_on_new = 1
+  let g:gutentags_generate_on_missing = 1
+  let g:gutentags_generate_on_write = 1
+  let g:gutentags_generate_on_empty_buffer = 0
+  let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+  command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+
+  let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+" }}}
+
 " Misc {{{
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
@@ -337,3 +357,39 @@ let g:tmuxline_preset = {
   source ~/.local/dotfiles/nabn/nvim/fzf.vim
 
 " }}}
+
+
+let g:eleline_powerline_fonts = 1
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+let g:javascript_plugin_jsdoc = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+
+" coc linting is slow
+set updatetime=300
+
+" experimental. paint out 
+let &colorcolumn=join(range(81,999),",")

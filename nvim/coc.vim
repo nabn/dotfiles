@@ -1,4 +1,4 @@
-" Functions ==================================
+" ==================================
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -10,7 +10,10 @@ endfunction
 
 set updatetime=300
 set shortmess+=c
-set signcolumn=no
+
+hi coc_err_hi ctermfg=1 ctermbg=15
+sign define coc_err numhl=coc_err_hi
+sign place 1 line=2 name=coc_err
 
 verbose inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -34,11 +37,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> rn <Plug>(coc-rename)
+nmap tt :CocList symbols<CR>
 
 " coc-git
 nmap [c <Plug>(coc-git-prevchunk)
 nmap ]c <Plug>(coc-git-nextchunk)
-nmap gc <Plug>(coc-git-commit)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
@@ -48,6 +51,13 @@ xmap ag <Plug>(coc-git-chunk-outer)
 nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
 nnoremap <leader>cs :CocCommand git.chunkStage<cr>
 nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
+nnoremap <leader>cl :CocList 
+nnoremap <leader>cc :CocCommand 
+nnoremap cc :CocCommand 
+nnoremap <leader>cn :CocNext<cr>
+nmap <leader>ca <Plug>(coc-codeaction-selected)
+xmap <leader>ca <Plug>(coc-codeaction-selected)
+
 
 " refresh completion menu
 inoremap <silent><expr> <c-space> coc#refresh()

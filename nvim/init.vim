@@ -1,58 +1,3 @@
-" Plugins {{{
-  call plug#begin('~/.config/nvim/plugged')
-
-    " Colorschemes
-    Plug 'morhetz/gruvbox'
-    Plug 'fenetikm/falcon'
-    Plug 'cocopon/iceberg.vim/'
-    Plug 'ajmwagar/vim-deus'
-    Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'luochen1990/rainbow'
-    Plug 'srcery-colors/srcery-vim'
-    Plug 'cideM/yui'
-    Plug 'pgdouyon/vim-yin-yang'
-    "-----
-
-    Plug '/usr/local/bin/fzf'
-    Plug 'alok/notational-fzf-vim'
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'edkolev/tmuxline.vim'
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/goyo.vim'
-    Plug 'junegunn/limelight.vim'
-    Plug 'junegunn/vim-easy-align'
-    Plug 'mattn/emmet-vim'
-    Plug 'mcchrish/nnn.vim'
-    Plug 'metakirby5/codi.vim'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'rhysd/git-messenger.vim'
-    Plug 'svermeulen/vim-yoink'
-    Plug 'tomtom/tcomment_vim'               " file-type sensible comments
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-surround'
-    Plug 'vimwiki/vimwiki'
-
-    Plug 'tpope/vim-eunuch'
-    Plug 'liuchengxu/eleline.vim'
-    Plug 'liuchengxu/vista.vim'
-    Plug 'ludovicchabant/vim-gutentags'
-    Plug 'mhinz/vim-startify'
-
-    " Language
-    Plug 'MaxMEllon/vim-jsx-pretty'
-    Plug 'alampros/vim-styled-jsx'
-    Plug 'vim-pandoc/vim-pandoc'
-    Plug 'vim-pandoc/vim-pandoc-syntax' 
-    Plug 'rafcamlet/nvim-luapad'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'othree/javascript-libraries-syntax.vim'
-    Plug 'honza/vim-snippets'
-    " --------
-
-  call plug#end()
-" }}}
-
 " Set Declarations {{{
   filetype indent on
   filetype plugin indent on
@@ -72,6 +17,7 @@
   set diffopt+=vertical
   set encoding=utf8
   set expandtab
+  set equalalways
   set foldmethod=syntax
   set formatoptions+=j                              " delete comment character when joining commented lines
   set gdefault                                      " set global flag as default for :substitute
@@ -83,7 +29,7 @@
   set lazyredraw
   set linebreak
   set listchars=tab:>-,trail:~,extends:>,precedes:<,eol:↩
-  set mouse=a
+  set mouse=ar
   set nofoldenable
   " set nomodeline
   set noshowmode
@@ -94,6 +40,8 @@
   set ruler
   set shiftwidth=2
   set showcmd
+  set showtabline=2 " Always show tab line
+  set signcolumn=number
   set smartcase
   set smartindent
   set softtabstop=2
@@ -102,13 +50,52 @@
   set timeoutlen=300
   set undofile
   set wildignorecase                                " case insensitive filename completion
+
   set visualbell
   set nowrap
-  syntax enable
+  " syntax enable
+  set t_ti= t_te=
 
   " Misspellings
   iabbrev improt import
   iabbrev lgo log
+" }}}
+
+" Plugins {{{
+  call plug#begin('~/.config/nvim/plugged')
+
+    Plug '/usr/local/bin/fzf'
+    Plug 'alok/notational-fzf-vim'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'junegunn/vim-easy-align'
+    Plug 'liuchengxu/eleline.vim'
+    Plug 'liuchengxu/vista.vim'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'mattn/emmet-vim'
+    Plug 'mcchrish/nnn.vim'
+    Plug 'mhinz/vim-startify'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'tomtom/tcomment_vim'               " file-type sensible comments
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
+    Plug 'vimwiki/vimwiki'
+    Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+
+    " Colorschemes
+    Plug 'ajmwagar/vim-deus'
+    Plug 'cideM/yui'
+    Plug 'morhetz/gruvbox'
+    Plug 'rakr/vim-one'
+    Plug 'srcery-colors/srcery-vim'
+    Plug 'ayu-theme/ayu-vim'
+
+  call plug#end()
 " }}}
 
 " Mappings {{{
@@ -118,8 +105,6 @@
   let g:rg_derive_root='true'
 
   " nmap tt :call helpers#SwapTestFile()<CR>
-  nnoremap tt :Tags<cr>
-  nnoremap bt :BTags<cr>
   nnoremap 0 ^
   nnoremap <leader><space> :b#<CR>    " switch to last buffer
   nnoremap <leader>N :NV<CR>
@@ -135,8 +120,8 @@
   nnoremap <space> za                 " toggle folding
   nnoremap Q @@ " replay last macro
   nnoremap gV `[v`]                   " highlight last inserted text
-  nnoremap j gj
-  nnoremap k gk
+  " nnoremap j gj
+  " nnoremap k gk
   nnoremap z<space> zO                " open all folds under cursor
 
   tnoremap <Esc> <C-\><C-n>
@@ -195,24 +180,16 @@ set fillchars+=vert:│
 " Show tabs and trailing whitespace
 set list listchars=tab:>>,trail:~
 
-let g:tmuxline_powerline_separators=0
 let g:vim_json_syntax_conceal = 1
 let g:nv_use_short_pathnames=1
 
-lua require'colorizer'.setup()
 
-
-let srcery_italic=1
 let g:gruvbox_italic=1
 let g:gruvbox_bold=0
-let g:deus_termcolors=256
-colorscheme yui
-
-let g:tmuxline_preset = {
-      \ 'a':    [ 'CSP'                        ] ,
-      \ 'win':  [ '#I',                   '#W' ] ,
-      \ 'cwin': [ '#I',                   '#W' ] ,
-      \ 'x':    [ '#(tmux-spotify-info)', '#S' ] }
+set background=dark
+colorscheme gruvbox
+" fix <Highlight of background seems wrong with floating window.>
+hi Quote ctermbg=109 guifg=#83a598
 
   " Goyo & Limelight {{{
   function! s:goyo_enter()
@@ -327,6 +304,9 @@ let g:tmuxline_preset = {
   " prevent opening 1 when I mean :e!
   au BufNew 1 throw 'You meant to :e! but did :e1'
 
+  " toggle inline diff in fugitive
+  au FileType fugitive nnoremap <space> =
+
   " From garyBernhardt's vimrc
   " Jump to the last cursor position unless it is
   " invalid or in an event handler
@@ -334,15 +314,6 @@ let g:tmuxline_preset = {
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal g`\"" |
         \ endif
-
-  nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-  nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-  nmap p <plug>(YoinkPaste_p)
-  nmap P <plug>(YoinkPaste_P)
-
-  nnoremap <leader>cs :CocCommand git.chunkStage<cr>
-  nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
-  nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
 
   let g:vimwiki_list = [{
       \ 'path': '~/Google Drive/Notes/',
@@ -353,43 +324,14 @@ let g:tmuxline_preset = {
     silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
   endif
 
-  source ~/.local/dotfiles/nabn/nvim/coc-user-config.vim
+  source ~/.local/dotfiles/nabn/nvim/coc.vim
   source ~/.local/dotfiles/nabn/nvim/fzf.vim
-
 " }}}
 
+let g:eleline_slim = 1
 
-let g:eleline_powerline_fonts = 1
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-let g:javascript_plugin_jsdoc = 1
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
-augroup END
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_this                 = "@"
-let g:javascript_conceal_return               = "⇚"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_prototype            = "¶"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-
-" coc linting is slow
-set updatetime=300
-
-" experimental. paint out 
-let &colorcolumn=join(range(81,999),",")
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = { enable = true }
+}
+EOF

@@ -11,7 +11,10 @@ scrolling:
 font:
   normal:
     family: Iosevka Term SS01
-    variant: Regular
+    style: Regular
+  bold:
+    family: Iosevka Term SS01
+    style: Medium
   size: 14
   offset:
     x: 0
@@ -37,4 +40,6 @@ key_bindings:
       command: { program: "open", args: ["/Applications/VimR.app"] },
     }
 
-custom_cursor_colors: false
+# custom_cursor_colors: false
+
+

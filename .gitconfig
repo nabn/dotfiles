@@ -8,8 +8,8 @@
 
 [core]
 	excludesfile = /Users/nabn/.gitignore_global
+  # pager = delta --light
   pager = delta --theme='Dracula'
-
 
 [interactive]
   diffFilter = delta --color-only

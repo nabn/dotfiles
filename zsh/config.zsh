@@ -19,28 +19,21 @@
       zinit-zsh/z-a-bin-gem-node
 
   autoload -Uz compinit
-  if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-    compinit
-  else
-    compinit -C
-  fi
+  # if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+  #   compinit
+  # else
+  #   compinit -C
+  # fi
 # }}} End of Zinit's installer chunk
 
 # Plugins {{{
 zinit load agkozak/zsh-z
-zinit load geometry-zsh/geometry
 zinit load zsh-users/zsh-autosuggestions
 zinit load zdharma/fast-syntax-highlighting
 zinit load mafredri/zsh-async
 zinit load tj/git-extras
 zinit load Aloxaf/fzf-tab
 # }}}
-
-# Prompt {{{
-GEOMETRY_PROMPT=(geometry_status geometry_path geometry_echo geometry_jobs )
-GEOMETRY_RPROMPT+=(geometry_todo)
-GEOMETRY_TODO_COLOR=red
-# # }}}
 
 # Setup {{{
 setopt appendhistory
@@ -147,12 +140,4 @@ export PATH="$HOME/.local/bin:$PATH"
               rm -f "$NNN_TMPFILE" > /dev/null
       fi
   }
-# }}}
-
-# Geometry todo {{{
-  # geometry_todo - simple stack of todo items
-
-  export GEOMETRY_TODO=${GEOMETRY_TODO:-${HOME}/.todo.md}
-  export GEOMETRY_TODONE=${GEOMETRY_TODONE:-${HOME}/.todone.md}
-  touch $GEOMETRY_TODO $GEOMETRY_TODONE
 # }}}

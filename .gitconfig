@@ -7,8 +7,7 @@
   identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\""
 
 [core]
-	excludesfile = /Users/nabn/.gitignore_global
-  # pager = delta --light
+  excludesfile = ~/.gitignore_global
   pager = delta --theme='Dracula'
 
 [interactive]
@@ -33,18 +32,10 @@
   name = automatically merge npm lockfiles
   driver = npx npm-merge-driver merge %A %O %B %P
 
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
 [user]
   useConfigOnly = true
-  name = nabeen
-  email = nabeen.khadka@arria.com
+	name = Nabeen Khadka
+	email = nkhadka@woolworths.com.au
 [user "arriabitbucket"]
   name = Nabeen Khadka
   email = nabeen.khadka@arria.com
@@ -54,6 +45,6 @@
 [includeIf "gitdir:~/Arria/"]
   path = ~/Arria/.gitconfig
 [fetch]
-	prune = true
+  prune = true
 [pull]
-	ff = only
+  ff = only

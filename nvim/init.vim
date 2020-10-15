@@ -41,7 +41,7 @@
   set shiftwidth=2
   set showcmd
   set showtabline=2 " Always show tab line
-  set signcolumn=number
+  set signcolumn=no
   set smartcase
   set smartindent
   set softtabstop=2
@@ -62,6 +62,7 @@
 " }}}
 
 " Plugins {{{
+
   call plug#begin('~/.config/nvim/plugged')
 
     Plug '/usr/local/bin/fzf'
@@ -85,7 +86,6 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'vimwiki/vimwiki'
-    Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 
     " Colorschemes
     Plug 'ajmwagar/vim-deus'
@@ -152,7 +152,7 @@
   " list matches
   " can be achieved with [I /]I
   nnoremap <leader>lm :vim // %<CR>:copen<CR>
-  nnoremap ff :Format<CR>
+  " nnoremap ff :Format<CR>
 " }}}
 
 " Linters + Formatters + Colors {{{
@@ -226,7 +226,7 @@ hi Quote ctermbg=109 guifg=#83a598
   let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
   let g:nnn#set_default_mappings = 0
   let g:nnn#command = 'nnn -H'
-  nnoremap <leader><cr> :NnnPicker '%:p:h'<CR>
+  nnoremap <leader><cr> :NnnPicker %:p:h<CR>
 " }}}
 
 " Tmux navigation compatibility {{{
@@ -324,8 +324,8 @@ hi Quote ctermbg=109 guifg=#83a598
     silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
   endif
 
-  source ~/.local/dotfiles/nabn/nvim/coc.vim
-  source ~/.local/dotfiles/nabn/nvim/fzf.vim
+  source ~/.local/dotfiles/nvim/coc.vim
+  source ~/.local/dotfiles/nvim/fzf.vim
 " }}}
 
 let g:eleline_slim = 1

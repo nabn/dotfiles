@@ -2,19 +2,23 @@ env:
   TERM: alacritty
 window:
   decorations: buttonless
+  padding:
+    x: 2
+    y: 2
 scrolling:
   history: 20000
   multiplier: 3
 font:
   normal:
-    family: Input
-  size: 17
+    family: Iosevka SS01
+    style: Regular
+  size: 16
   offset:
-    x: -2
-    'y': 6
+    x: -1
+    y: 10
   glyph_offset:
     x: 0
-    'y': 6
+    y: 10
   use_thin_strokes: true
 cursor:
   style: Block

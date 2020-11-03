@@ -1,5 +1,32 @@
 {
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LWxheWJ5L3VpL3NyYw==": [
     "services"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQ=": [
+    "usepagemodel",
+    "getdata",
+    "topojo",
+    "partial",
+    "partialpayment",
+    "partialpayment ",
+    "partialpay",
+    "addagift",
+    "cartservice",
+    "paymentoptions",
+    "addagiftca",
+    "payment",
+    "registerform",
+    "GiftCard",
+    "GiftCards",
+    "checkoutlayout",
+    "giftcard",
+    "parsecurren"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvY29tcG9zaXRpb25zL3BhZ2U=": [
+    "partialpayment"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvcGFnZXMvbXktYWNjb3VudC9yZXdhcmRz": [
+    "deliveryoption",
+    "DeliveryOption"
   ]
 }

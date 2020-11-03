@@ -1,4 +1,6 @@
 .DS_Store
-plugged/
+.idea/
 .netrwhist
 coc-settings.json
+node_modules/
+plugged/

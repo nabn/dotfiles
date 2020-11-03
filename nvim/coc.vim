@@ -28,13 +28,14 @@ xmap <silent> la <Plug>(coc-codeaction-selected)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 command! -nargs=? Fold   :call     CocAction('fold', <f-args>)
-command! -nargs=0 Format :call     CocAction('format')
+" au FileType *.html,*.scss command! -nargs=0 Format :call CocAction('format')
+au FileType * command! -nargs=0 Format :call CocAction('format')
 
 nmap <silent> ep <Plug>(coc-diagnostic-prev)
 nmap <silent> en <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> rn <Plug>(coc-rename)
 nmap tt :CocList symbols<CR>

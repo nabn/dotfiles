@@ -19,11 +19,11 @@
       zinit-zsh/z-a-bin-gem-node
 
   autoload -Uz compinit
-  # if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  #   compinit
-  # else
-  #   compinit -C
-  # fi
+  if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+    compinit
+  else
+    compinit -C
+  fi
 # }}} End of Zinit's installer chunk
 
 # Plugins {{{
@@ -33,6 +33,7 @@ zinit load zdharma/fast-syntax-highlighting
 zinit load mafredri/zsh-async
 zinit load tj/git-extras
 zinit load Aloxaf/fzf-tab
+zinit load geometry-zsh/geometry
 # }}}
 
 # Setup {{{
@@ -54,6 +55,14 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'
 
 # }}}
+
+# Prompt {{{
+# export GEOMETRY_STATUS_SYMBOL="λ"
+GEOMETRY_PROMPT=(geometry_status geometry_path geometry_echo geometry_jobs )
+GEOMETRY_STATUS_SYMBOL="▲ "
+GEOMETRY_STATUS_SYMBOL_ERROR="△ "
+GEOMETRY_PATH_SHOW_BASENAME=true
+# # }}}
 
 # Variables {{{
 HISTFILE=~/.zsh_history
@@ -103,8 +112,8 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
-
-export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH=$PATH:/Users/nabeen/.gem/ruby/2.7.0/bin
 export PATH="$HOME/.local/bin:$PATH"
 # }}}
 

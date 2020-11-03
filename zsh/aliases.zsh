@@ -23,7 +23,6 @@
   alias restartbluetooth='blueutil -p 0 && sleep 3 && blueutil -p 1'
   alias rg='rg --pretty --smart-case'
   alias rm='trash -v'
-  alias s='sls --aws-profile bssdev2 --stage dev2'
   alias shop='open -n -a "Google Chrome" --args --profile-directory="Profile 2"'
   alias ssh='TERM=xterm-256color ssh'
   alias tcheck="tsc --allowJs --checkJs --noEmit "

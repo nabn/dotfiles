@@ -34,11 +34,12 @@ key_bindings:
   - { key: C, mods: Command, action: Copy }
   - { key: V, mods: Command, action: Paste }
   - { key: Space, mods: Alt, chars: " " }
-  - {
-      key: J,
-      mods: Command,
-      command: { program: "open", args: ["/Applications/VimR.app"] },
-    }
+  # - { key: Enter, mods: Alt, chars: ":CocCommand tsserver.executeAutofix" }
+  # - {
+  #     key: J,
+  #     mods: Command,
+  #     command: { program: "open", args: ["/Applications/VimR.app"] },
+  #   }
 
 # custom_cursor_colors: false
 

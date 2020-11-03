@@ -1,7 +1,10 @@
 {
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQ=": [
     "tsser",
-    "qq"
+    "qq",
+    "prettier",
+    "snip",
+    "tslint"
   ],
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXdhaXRpbmctcm9vbS11aQ==": [
     "pairs",

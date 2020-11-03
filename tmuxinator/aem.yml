@@ -1,0 +1,14 @@
+# /Users/nabeen/.config/tmuxinator/aem.yml
+
+name: aem
+root: ~/Upgrowth/bigw-aem
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vi
+  - servers:
+      layout: even-horizontal
+      panes:
+        - yarn start:author
+        - yarn start:publish

@@ -1,4 +1,6 @@
+tsserver.executeAutofix
+git.chunkInfo
 git.chunkUndo
 git.chunkStage
 git.refresh
-git.chunkInfo
+tsserver.organizeImports

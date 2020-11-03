@@ -34,7 +34,7 @@
   " set nomodeline
   set noshowmode
   set noswapfile
-  " set number  " -- the line number is in the bottom right
+  set number  " -- the line number is in the bottom right
   set relativenumber
   set rtp+=/usr/local/opt/fzf
   set ruler
@@ -72,7 +72,10 @@
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
     Plug 'junegunn/vim-easy-align'
-    Plug 'liuchengxu/eleline.vim'
+    " Plug 'liuchengxu/eleline.vim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'hardcoreplayers/spaceline.vim'
+
     Plug 'liuchengxu/vista.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'mattn/emmet-vim'
@@ -86,6 +89,7 @@
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'vimwiki/vimwiki'
+    " Plug 'sheerun/vim-polyglot'
 
     " Colorschemes
     Plug 'ajmwagar/vim-deus'
@@ -94,6 +98,16 @@
     Plug 'rakr/vim-one'
     Plug 'srcery-colors/srcery-vim'
     Plug 'ayu-theme/ayu-vim'
+    Plug 'challenger-deep-theme/vim'
+    Plug 'fenetikm/falcon'
+    Plug 'jsit/toast.vim'
+    Plug 'kyazdani42/blue-moon'
+
+    " Plug 'mhartington/formatter.nvim'
+    Plug 'lukas-reineke/format.nvim'
+    Plug 'TimUntersberger/neofs'
+    Plug 'romgrk/barbar.nvim'
+    Plug 'glepnir/zephyr-nvim'
 
   call plug#end()
 " }}}
@@ -159,18 +173,22 @@
 " primitive html auto-format
 vnoremap <leader>x JV:s/>\s*</>\r</<CR>
 
+let g:spaceline_seperate_style='none'
+let g:spaceline_diagnostic_errorsign="E:"
+let g:spaceline_diagnostic_warnsign="W:"
+let g:spaceline_diagnostic_oksign=""
+
 if has('multi_byte')
-    set listchars=tab:»»,trail:•
-    set fillchars=vert:┃ showbreak=↪
+  set listchars=tab:»»,trail:•
+  set fillchars=vert:┃ showbreak=↪
 endif
 
-autocmd FileType yaml setlocal foldmethod=indent
+autocmd BufNewFile,BufRead *.jsx setlocal ft=javascript.jsx
 autocmd FileType vim,conf setlocal foldmethod=marker
-autocmd FileType vimwiki se nowrap
-" autocmd FileType javascript,javascriptreact,typescript,typescriptreact setl foldmethod=manual " use CoC :Fold command to fold
-autocmd BufNewFile,BufRead *.jsx set ft=javascript.jsx
-autocmd VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-autocmd VimLeave,VimSuspend * set guicursor=a:ver10
+autocmd FileType vimwiki setlocal nowrap
+autocmd FileType yaml setlocal foldmethod=indent
+autocmd VimEnter,VimResume * setlocal guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+autocmd VimLeave,VimSuspend * setlocal guicursor=a:ver10
 
 " sort imports
 nnoremap <leader>s viB:sort<cr>
@@ -186,10 +204,13 @@ let g:nv_use_short_pathnames=1
 
 let g:gruvbox_italic=1
 let g:gruvbox_bold=0
+let g:blamer_enabled=1
 set background=dark
-colorscheme gruvbox
+
+" let g:gruvbox_contrast_dark='hard'
+colorscheme falcon
 " fix <Highlight of background seems wrong with floating window.>
-hi Quote ctermbg=109 guifg=#83a598
+" hi Quote ctermbg=109 guifg=#83a598
 
   " Goyo & Limelight {{{
   function! s:goyo_enter()
@@ -324,14 +345,10 @@ hi Quote ctermbg=109 guifg=#83a598
     silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
   endif
 
+  source ~/.local/dotfiles/nvim/lua.vim
   source ~/.local/dotfiles/nvim/coc.vim
   source ~/.local/dotfiles/nvim/fzf.vim
 " }}}
 
-let g:eleline_slim = 1
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = { enable = true }
-}
-EOF
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

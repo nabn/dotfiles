@@ -27,7 +27,10 @@ xmap <silent> la <Plug>(coc-codeaction-selected)
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-command! -nargs=? Fold   :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
+command! -nargs=? Fix  :call CocActionAsync('codeAction', '')
+nmap <M-CR> :Fix<CR>
+
 " au FileType *.html,*.scss command! -nargs=0 Format :call CocAction('format')
 au FileType * command! -nargs=0 Format :call CocAction('format')
 
@@ -47,11 +50,12 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
-
 " nnoremap <leader>gs :<C-u>CocList --normal gstatus<CR>
 nnoremap <leader>ci :CocCommand git.chunkInfo<cr>
 nnoremap <leader>cs :CocCommand git.chunkStage<cr>
 nnoremap <leader>cu :CocCommand git.chunkUndo<cr>
+autocmd CursorHold * :CocCommand git.refresh
+
 nnoremap <leader>cl :CocList 
 nnoremap <leader>cc :CocCommand 
 nnoremap cc :CocCommand 

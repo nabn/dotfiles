@@ -1,1 +1,11 @@
-{}
+{
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQ=": [
+    "prop",
+    "get",
+    "region"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvY29tcG9uZW50cy9uYXZpZ2F0aW9uL3JpYmJvbg==": [
+    "console",
+    "log"
+  ]
+}

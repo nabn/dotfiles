@@ -1,0 +1,18 @@
+{
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3b21z": [
+    "java"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvY29tcG9uZW50cy9uYXZpZ2F0aW9uL3JpYmJvbg==": [
+    "sni"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQ=": [
+    "coc-emm",
+    "git",
+    "ts",
+    "tslint"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3b21zL2h5YnJpcy9iaW4vY3VzdG9tL2JpZ3cvYmlnd3N0b3JlZnJvbnQvd2ViL3NyYy9jb20vdGNzL2JpZ3cvc3RvcmVmcm9udC9hcGkvb3JkZXI=": [
+    "cc",
+    "java"
+  ]
+}

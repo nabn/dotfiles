@@ -18,7 +18,7 @@
   set encoding=utf8
   set expandtab
   set equalalways
-  set foldmethod=syntax
+  set foldmethod=indent
   set formatoptions+=j                              " delete comment character when joining commented lines
   set gdefault                                      " set global flag as default for :substitute
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
@@ -40,8 +40,7 @@
   set ruler
   set shiftwidth=2
   set showcmd
-  set showtabline=2 " Always show tab line
-  set signcolumn=no
+  " set showtabline=2 " Always show tab line
   set smartcase
   set smartindent
   set softtabstop=2
@@ -50,6 +49,7 @@
   set timeoutlen=300
   set undofile
   set wildignorecase                                " case insensitive filename completion
+  set signcolumn=number
 
   set visualbell
   set nowrap
@@ -66,48 +66,39 @@
   call plug#begin('~/.config/nvim/plugged')
 
     Plug '/usr/local/bin/fzf'
+    Plug 'MaxMEllon/vim-jsx-pretty'
     Plug 'alok/notational-fzf-vim'
     Plug 'christoomey/vim-tmux-navigator'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'gutenye/json5.vim'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
     Plug 'junegunn/vim-easy-align'
-    " Plug 'liuchengxu/eleline.vim'
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'hardcoreplayers/spaceline.vim'
-
     Plug 'liuchengxu/vista.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'mattn/emmet-vim'
-    Plug 'mcchrish/nnn.vim'
     Plug 'mhinz/vim-startify'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'tomtom/tcomment_vim'               " file-type sensible comments
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
     Plug 'vimwiki/vimwiki'
-    " Plug 'sheerun/vim-polyglot'
 
     " Colorschemes
-    Plug 'ajmwagar/vim-deus'
-    Plug 'cideM/yui'
     Plug 'morhetz/gruvbox'
-    Plug 'rakr/vim-one'
-    Plug 'srcery-colors/srcery-vim'
-    Plug 'ayu-theme/ayu-vim'
-    Plug 'challenger-deep-theme/vim'
     Plug 'fenetikm/falcon'
-    Plug 'jsit/toast.vim'
-    Plug 'kyazdani42/blue-moon'
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'ntk148v/vim-horizon'
 
-    " Plug 'mhartington/formatter.nvim'
-    Plug 'lukas-reineke/format.nvim'
-    Plug 'TimUntersberger/neofs'
-    Plug 'romgrk/barbar.nvim'
-    Plug 'glepnir/zephyr-nvim'
+    Plug 'norcalli/nvim-colorizer.lua'
+
+    " Plug 'lukas-reineke/format.nvim'
+    " Plug 'TimUntersberger/neofs'
+    Plug 'mcchrish/nnn.vim'
 
   call plug#end()
 " }}}
@@ -202,15 +193,27 @@ let g:vim_json_syntax_conceal = 1
 let g:nv_use_short_pathnames=1
 
 
-let g:gruvbox_italic=1
-let g:gruvbox_bold=0
-let g:blamer_enabled=1
-set background=dark
 
-" let g:gruvbox_contrast_dark='hard'
-colorscheme falcon
-" fix <Highlight of background seems wrong with floating window.>
-" hi Quote ctermbg=109 guifg=#83a598
+" Colorscheme {{{
+  set background=dark
+  let &t_ZH="\e[3m"
+  let &t_ZR="\e[23m"
+  let g:gruvbox_italic=1
+  let g:gruvbox_bold=0
+  let g:gruvbox_contrast_dark='hard'
+  colorscheme gruvbox
+  " fix <Highlight of background seems wrong with floating window.>
+  hi Quote ctermbg=109 guifg=#83a598
+
+
+  " let g:oceanic_next_terminal_bold = 1
+  " let g:oceanic_next_terminal_italic = 1
+  " colorscheme OceanicNext
+
+  " let g:ayucolor='mirage'
+  " colo ayu
+  " colo falcon
+" }}}
 
   " Goyo & Limelight {{{
   function! s:goyo_enter()
@@ -243,11 +246,14 @@ colorscheme falcon
 
 " }}}
 
-" NnnPicker {{{
+" Explorer {{{
   let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
   let g:nnn#set_default_mappings = 0
   let g:nnn#command = 'nnn -H'
   nnoremap <leader><cr> :NnnPicker %:p:h<CR>
+  " nnoremap <leader><cr> :CocCommand explorer
+  "   \ --toggle
+  "   \ --sources=buffer+,file+<CR>
 " }}}
 
 " Tmux navigation compatibility {{{
@@ -345,10 +351,34 @@ colorscheme falcon
     silent nnoremap <D-j> :!open /Applications/Alacritty.app<CR><ESC>
   endif
 
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
   source ~/.local/dotfiles/nvim/lua.vim
   source ~/.local/dotfiles/nvim/coc.vim
   source ~/.local/dotfiles/nvim/fzf.vim
+  source ~/.local/dotfiles/nvim/redir.vim
 " }}}
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+" Snippets {{{
+  " Use <C-l> for trigger snippet expand.
+  imap <C-l> <Plug>(coc-snippets-expand)
+
+  " Use <C-j> for select text for visual placeholder of snippet.
+  vmap <C-j> <Plug>(coc-snippets-select)
+
+  " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+  let g:coc_snippet_next = '<c-j>'
+
+  " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+  let g:coc_snippet_prev = '<c-k>'
+
+  " Use <C-j> for both expand and jump (make expand higher priority.)
+  imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+  " Use <leader>x for convert visual selected code to snippet
+  xmap <leader>x  <Plug>(coc-convert-snippet)
+" }}}
+
+" au FileType *.tsx BufWritePre npx tslint --fix
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf

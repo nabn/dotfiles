@@ -12,6 +12,9 @@ font:
   normal:
     family: Iosevka Term SS01
     style: Regular
+  italic:
+    family: Iosevka Fixed SS01
+    style: Oblique
   bold:
     family: Iosevka Term SS01
     style: Medium

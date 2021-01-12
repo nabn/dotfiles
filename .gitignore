@@ -1,6 +1,9 @@
 .DS_Store
 .idea/
 .netrwhist
-coc-settings.json
-node_modules/
+coc/extensions/
+**/node_modules/
 plugged/
+yarn/
+
+.editorconfig

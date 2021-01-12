@@ -6,5 +6,5 @@ windows:
   - editor:
       layout: main-vertical
       panes:
-        - vi
-  - server: open http://localhost:3000/api/_access/9eb69d6e-1727-11eb-adc1-0242ac120002 && yarn start:ui@pimuat
+        - vi -c 'lcd ~/Upgrowth/bigw-storefront/'
+  - server: yarn start:ui@uat2

@@ -4,7 +4,7 @@ window:
   decorations: buttonless
   padding:
     x: 2
-    y: 2
+    'y': 2
 scrolling:
   history: 20000
   multiplier: 3
@@ -12,13 +12,16 @@ font:
   normal:
     family: Iosevka SS01
     style: Regular
+  italic:
+    family: Iosevka Fixed SS01
+    style: Oblique
   size: 16
   offset:
     x: -1
-    y: 10
+    'y': 10
   glyph_offset:
     x: 0
-    y: 10
+    'y': 10
   use_thin_strokes: true
 cursor:
   style: Block
@@ -44,26 +47,87 @@ key_bindings:
         - /Applications/VimR.app
 colors:
   primary:
-    background: '#161821'
-    foreground: '#d2d4de'
+    background: '0x1c1b19'
+    foreground: '0xfce8c3'
   normal:
-    black: '#161821'
-    red: '#e27878'
-    green: '#b4be82'
-    yellow: '#e2a478'
-    blue: '#84a0c6'
-    magenta: '#a093c7'
-    cyan: '#89b8c2'
-    white: '#c6c8d1'
+    black: '0x1c1b19'
+    red: '0xef2f27'
+    green: '0x519f50'
+    yellow: '0xfbb829'
+    blue: '0x2c78bf'
+    magenta: '0xe02c6d'
+    cyan: '0x0aaeb3'
+    white: '0xd0bfa1'
   bright:
-    black: '#6b7089'
-    red: '#e98989'
-    green: '#c0ca8e'
-    yellow: '#e9b189'
-    blue: '#91acd1'
-    magenta: '#ada0d3'
-    cyan: '#95c4ce'
-    white: '#d2d4de'
+    black: '0x918175'
+    red: '0xf75341'
+    green: '0x98bc37'
+    yellow: '0xfed06e'
+    blue: '0x68a8e4'
+    magenta: '0xff5c8f'
+    cyan: '0x53fde9'
+    white: '0xfce8c3'
+  cursor:
+    text: '#3C4C55'
+    cursor: '#7FC1CA'
+  indexed_colors:
+    - index: 16
+      color: '0xf99157'
+    - index: 17
+      color: '0xab7967'
+    - index: 18
+      color: '0x343d46'
+    - index: 19
+      color: '0x4f5b66'
+    - index: 20
+      color: '0xa7adba'
+    - index: 21
+      color: '0xcdd3de'
+    - index: 16
+      color: '0xf99157'
+    - index: 17
+      color: '0xab7967'
+    - index: 18
+      color: '0x343d46'
+    - index: 19
+      color: '0x4f5b66'
+    - index: 20
+      color: '0xa7adba'
+    - index: 21
+      color: '0xcdd3de'
+    - index: 16
+      color: '0xf99157'
+    - index: 17
+      color: '0xab7967'
+    - index: 18
+      color: '0x343d46'
+    - index: 19
+      color: '0x4f5b66'
+    - index: 20
+      color: '0xa7adba'
+    - index: 21
+      color: '0xcdd3de'
+    - index: 16
+      color: '0xf99157'
+    - index: 17
+      color: '0xab7967'
+    - index: 18
+      color: '0x343d46'
+    - index: 19
+      color: '0x4f5b66'
+    - index: 20
+      color: '0xa7adba'
+    - index: 21
+      color: '0xcdd3de'
+  dim:
+    black: '0x403c3a'
+    red: '0xa57b55'
+    green: '0x22947b'
+    yellow: '0x748c4a'
+    blue: '0x9478b0'
+    magenta: '0xb46f8c'
+    cyan: '0x418da9'
+    white: '0x8a827e'
 schemes:
   themer-dark:
     primary:
@@ -102,3 +166,66 @@ schemes:
       magenta: '#875B92'
       cyan: '#0E9783'
       white: '#bfc0c2'
+p_a1: '0xd8af8e'
+p_a2: '0xa57b55'
+p_a3: '0x645851'
+p_a4: '0x413c39'
+p_a5: '0x2d2b29'
+p_a6: '0x272524'
+p_b1: '0x94c390'
+p_b2: '0x5d9058'
+p_b3: '0x525e51'
+p_b4: '0x393e39'
+p_b5: '0x2a2c29'
+p_b6: '0x242624'
+p_d1: '0xb8b8aa'
+p_d2: '0x84847c'
+p_d3: '0x5b5b56'
+p_d4: '0x3d3d3a'
+p_d5: '0x2c2c29'
+p_d6: '0x262624'
+p_g1: '0xbbba81'
+p_g2: '0x888744'
+p_g3: '0x5c5b4e'
+p_g4: '0x3d3d37'
+p_g5: '0x2c2c29'
+p_g6: '0x262624'
+p_k1: '0x83bfda'
+p_k2: '0x418da9'
+p_k3: '0x4f5d64'
+p_k4: '0x383e41'
+p_k5: '0x292c2d'
+p_k6: '0x242627'
+p_t1: '0xe6a4be'
+p_t2: '0xb46f8c'
+p_t3: '0x67565c'
+p_t4: '0x433b3e'
+p_t5: '0x2e2a2c'
+p_t6: '0x282526'
+p_blacknormal: '0x5f5955'
+p_blackbright: '0x5f5955'
+p_blackdim: '0x403c3a'
+p_whitenormal: '0xc0b5ad'
+p_whitebright: '0xc0b5ad'
+p_whitedim: '0x8a827e'
+p_rednormal: '0xd8af8e'
+p_redbright: '0xd8af8e'
+p_reddim: '0xa57b55'
+p_yellownormal: '0xa8bf85'
+p_yellowbright: '0xa8bf85'
+p_yellowdim: '0x748c4a'
+p_greennormal: '0x71c6af'
+p_greenbright: '0x71c6af'
+p_greendim: '0x22947b'
+p_cyannormal: '0x83bfda'
+p_cyanbright: '0x83bfda'
+p_cyandim: '0x418da9'
+p_bluenormal: '0xc6ade1'
+p_bluebright: '0xc6ade1'
+p_bluedim: '0x9478b0'
+p_magentanormal: '0xe6a4be'
+p_magentabright: '0xe6a4be'
+p_magentadim: '0xb46f8c'
+background_opacity: 1
+custom_cursor_colors: true
+draw_bold_text_with_bright_colors: false

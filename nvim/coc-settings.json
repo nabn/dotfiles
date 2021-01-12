@@ -1,0 +1,20 @@
+{
+  "git.addGBlameToVirtualText": false,
+
+  "javascript.suggestionActions.enabled": false,
+
+  "prettier.trailingComma": "none",
+  "prettier.tslintIntegration": true,
+
+  "tslint.autoFixOnSave": true,
+
+  "typescript.preferences.importModuleSpecifier": "relative",
+
+  "git.addedSign.hlGroup": "diffAdded",
+  "git.removedSign.hlGroup": "diffRemoved",
+  "git.changedSign.hlGroup": "diffChanged",
+  "git.changeRemovedSign.hlGroup": "diffChangedRemoved",
+
+  "java.home": "/usr/local/Cellar/openjdk/15.0.1/libexec/openjdk.jdk/Contents/Home"
+}
+

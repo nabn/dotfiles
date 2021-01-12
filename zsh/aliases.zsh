@@ -28,8 +28,9 @@
   alias tcheck="tsc --allowJs --checkJs --noEmit "
   alias tmux='tmux -u -2'
   alias top='btm'
-  alias v='nvim `fzf --height=10`'
-  alias vr='vimr `fzf --height=10`'
+  alias watchstatus='while true; do clear; git status -s -b; sleep 5; done'
+  # this requires double confirmation for some reasons
+  # alias v='nvim `fzf-tmux`'
   alias vi='nvim'
   alias view='nvim -u NORC -R'
   alias watchstatus='while true; do clear; git status -s -b; sleep 5; done'
@@ -42,43 +43,6 @@
 # Suffix Aliases {{{
  alias -s md=vimr
  alias -s {cs,ts,html}=nvim
-# }}}
-
-# Utils {{{
-  function changeBranchGrep {
-    Remotes=`git branch -r`
-    Locals=`git branch`
-    Matches=`echo $Remotes$Locals\
-      | grep -i $1\
-      | sed 's|origin/||'\
-      | tr -d '*'`
-
-    echo $Matches | head -1 | xargs git checkout
-  }
-
-  function fbr() {
-    local branches branch
-    branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-    branch=$(echo "$branches" |
-             fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-  }
-
-
-  watchstatus='while true; do clear; git status -s -b; sleep 5; done'
-
-  function take {
-    mkdir $1 && cd $1
-  }
-
-  function deploy {
-    npm run deploy:"$1" &&\
-      terminal-notifier -title "CSP deployment" -message "Deployment to $1 successful"
-  }
-  notifydone() {
-    $1 && terminal-notifier -message 'done'
-  }
-
 # }}}
 
 # Git {{{
@@ -110,8 +74,9 @@
   alias gsp='git stash pop'
   alias syncmerge='git checkout master && git pull && git checkout - && git merge master'
   alias syncrebase='git checkout master && git pull && git checkout - && git rebase master'
-  alias t='tig --no-merges'
-  alias tm='tig --no-merges master...'
+  alias t='tig'
+  # alias t='tig --no-merges'
+  alias td='tig --no-merges develop...'
   alias tn='tig --no-merges --author=nabeen'
 # }}}
 

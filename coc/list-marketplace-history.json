@@ -4,11 +4,25 @@
     "qq",
     "prettier",
     "snip",
-    "tslint"
+    "emmet",
+    "coc-jtest",
+    "tslint",
+    "explore",
+    "tslin"
   ],
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXdhaXRpbmctcm9vbS11aQ==": [
     "pairs",
     "prettier",
     "ttier"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3b21z": [
+    "java"
+  ],
+  "L1VzZXJzL25hYmVlbg==": [
+    "explore",
+    "tslint"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3b21zL2h5YnJpcy9iaW4vY3VzdG9tL2JpZ3cvYmlnd3N0b3JlZnJvbnQvd2ViL3NyYy9jb20vdGNzL2JpZ3cvc3RvcmVmcm9udC9hcGkvb3JkZXI=": [
+    "ccls"
   ]
 }

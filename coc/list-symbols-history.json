@@ -20,7 +20,51 @@
     "GiftCards",
     "checkoutlayout",
     "giftcard",
-    "parsecurren"
+    "parsecurren",
+    "Step",
+    "Setup",
+    "setup",
+    "productavailabilityra",
+    "checkoutstep",
+    "Pickup",
+    "subcart",
+    "productpage",
+    "lrucache",
+    "availabilityraw",
+    "Suburb",
+    "State",
+    "productmoal",
+    "productsummary",
+    "catalogueemb",
+    "catalogueembed",
+    "product",
+    "setuserlocation",
+    "addressser",
+    "buttonslots",
+    "tocents",
+    "personaldetails",
+    "greeting",
+    "userser",
+    "userservice",
+    "orderconfirmation",
+    "cartsummaryprom",
+    "productvariants",
+    "carousel",
+    "useasyncqueu",
+    "orderconfirmations",
+    "productav",
+    "requirelocation",
+    "selectlocation",
+    "logout",
+    "reset",
+    "confirmpas",
+    "shouldusecached",
+    "shoulduse",
+    "movetowish",
+    "Address",
+    "rewardspaymentoption",
+    "onchange",
+    "routegenerator"
   ],
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvY29tcG9zaXRpb25zL3BhZ2U=": [
     "partialpayment"
@@ -28,5 +72,16 @@
   "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvcGFnZXMvbXktYWNjb3VudC9yZXdhcmRz": [
     "deliveryoption",
     "DeliveryOption"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3b21z": [
+    "badge",
+    "bigw"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWkvY29tcG9uZW50cy9uYXZpZ2F0aW9uL2hlYWRlcg==": [
+    "deliveryand"
+  ],
+  "L1VzZXJzL25hYmVlbi9VcGdyb3d0aC9iaWd3LXN0b3JlZnJvbnQvdWk=": [
+    "viewProduct",
+    "viewproduct"
   ]
 }

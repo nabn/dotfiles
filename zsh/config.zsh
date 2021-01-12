@@ -90,36 +90,45 @@ export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 # Italics for vim-deux colorscheme
 export TERM_ITALICS=true
+
+export JAVA_HOME=`/usr/libexec/java_home`
 # }}}
 
-# Android {{{
-export GRADLE_HOME='/usr/local/opt/gradle'
-# export ANDROID_NDK_HOME='/usr/local/share/android-ndk'
-# export ANDROID_SDK_ROOT='/usr/local/share/android-sdk'
-# export ANDROID_HOME='/usr/local/share/android-sdk'
-export ANDROID_HOME='/Users/nabeen.khadka/Library/Android/sdk'
-export PATH=$PATH:$GRADLE_HOME/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$ANDROID_HOME/build-tools/19.1.0
+# Node version manager: nvm {{{
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+  # place this after nvm initialization!
+  # autoload -U add-zsh-hook
+  # load-nvmrc() {
+  #   local node_version="$(nvm version)"
+  #   local nvmrc_path="$(nvm_find_nvmrc)"
+  #
+  #   if [ -n "$nvmrc_path" ]; then
+  #     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+  #
+  #     if [ "$nvmrc_node_version" = "N/A" ]; then
+  #       nvm install
+  #     elif [ "$nvmrc_node_version" != "$node_version" ]; then
+  #       nvm use
+  #     fi
+  #   elif [ "$node_version" != "$(nvm version default)" ]; then
+  #     echo "Reverting to nvm default version"
+  #     nvm use default
+  #   fi
+  # }
+  # add-zsh-hook chpwd load-nvmrc
+  # load-nvmrc
 # }}}
 
 # Paths {{{
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/5.7.0/bin:$PATH"
+export PATH="/Users/nabeen/.gem/ruby/2.7.0/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
-# export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
-export PATH=$PATH:/Users/nabeen/.gem/ruby/2.7.0/bin
-export PATH="$HOME/.local/bin:$PATH"
-# }}}
-
-# Node version manager: fnm {{{
-  eval "$(fnm env --multi)"
-# }}}
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# export PATH=$HOME/.local/bin:$PATH
+# # }}}
 
 # NNN :- Terminal file browser {{{
   n ()
